@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 
 # !!! # Crawl responsibly by identifying yourself (and your website/e-mail) on the user-agent
-USER_AGENT = 'TweetScraper'
+USER_AGENT = "D20 (jaydbendre@yahoo.com)"
 
 # settings for spiders
-BOT_NAME = 'TweetScraper'
+BOT_NAME = 'Twitter Scraper'
 LOG_LEVEL = 'INFO'
 # from http://stackoverflow.com/a/31233576/2297751, TODO
 DOWNLOAD_HANDLERS = {'s3': None, }
-
+DOWNLOAD_DELAY = 2
 SPIDER_MODULES = ['TweetScraper.spiders']
 NEWSPIDER_MODULE = 'TweetScraper.spiders'
 ITEM_PIPELINES = {
@@ -36,4 +36,5 @@ MYSQL_TABLE = "scraper"  # the table will be created automatically
 MYSQL_USER = ""
 MYSQL_PWD = ""        # MySQL user's password
 
-CLOSESPIDER_TIMEOUT = 60
+CLOSESPIDER_TIMEOUT = 600
+CLOSESPIDER_PAGECOUNT = 30
