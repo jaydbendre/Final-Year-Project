@@ -1,5 +1,6 @@
 import time
 import threading
+import multiprocessing
 import os
 import random
 import subprocess
@@ -11,9 +12,8 @@ from TweetScraper.spiders import TweetCrawler as t
 from scrapy.utils.project import get_project_settings
 
 search_terms_data = []
-with open("Search_terms_data/Pandemic.txt", "r") as f:
+with open("Search_terms_data/Storm.txt", "r") as f:
     search_terms_data = f.readline().split(",")
-
 
 """
 Threading attempt starts here
@@ -25,16 +25,46 @@ def partition(list_in, n):
     return [list_in[i::n] for i in range(n)]
 
 
-split_data = partition(search_terms_data, 200)
-
-split_1 = split_data[0]
-split_2 = split_data[1]
-split_3 = split_data[2]
+split_data = partition(search_terms_data, 3)
 
 
 process = CrawlerProcess(get_project_settings())
 
 
+# def crawling_terms(list_of_terms, lock):
+#     lock.acquire()
+#     for term in list_of_terms:
+#         term = term.lstrip()
+#         process.crawl(t.TweetScraperClass, query=term,
+#                       lang="eng", crawl_user=True)
+
+#     lock.release()
+
+
+# # if __name__ == '__main__':
+# lock = threading.Lock()
+# # p1 = multiprocessing.Process(
+# #     target=crawling_terms, args=(split_data[0], lock))
+# # p2 = multiprocessing.Process(
+# #     target=crawling_terms, args=(split_data[1], lock))
+# # p3 = multiprocessing.Process(
+# #     target=crawling_terms, args=(split_data[2], lock))
+
+# p1 = threading.Thread(
+#     target=crawling_terms, args=(split_data[0], lock))
+# p2 = threading.Thread(
+#     target=crawling_terms, args=(split_data[1], lock))
+# p3 = threading.Thread(
+#     target=crawling_terms, args=(split_data[2], lock))
+
+# p1.start()
+# p2.start()
+# p3.start()
+# p1.join()
+# p2.join()
+# p3.join()
+
+# print("Complete")
 # def thread_1():
 #     i = i.lstrip()
 #     process.crawl(t.TweetScraperClass, query=i, lang="eng")
@@ -76,8 +106,15 @@ Threading Attempt ends here
 """
 Linear Approach works fine
 """
+program_starts = time.time()
+
 for term in search_terms_data:
-    process.crawl(t.TweetScraperClass, query=term, lang="eng", crawl_user=True)
+    process.crawl(t.TweetScraperClass, query=term,
+                  lang="eng", crawl_user=True)
+# now = time.time()
+# print(now)
+#     if now - program_starts > 3600:
+#         break
 
 process.start()
 print("complete")
