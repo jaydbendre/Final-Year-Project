@@ -189,7 +189,10 @@ class SaveToFilePipeline(object):
         if isinstance(item, Tweet):
             self.saveTweetPath = "./Data/{}/tweets".format(
                 self.get_search_query(spider))
+            self.saveUserPath = "./Data/{}/users".format(
+                self.get_search_query(spider))
             mkdirs(self.saveTweetPath)  # ensure the path exists
+            mkdirs(self.saveUserPath)
             savePath = os.path.join(self.saveTweetPath, item['ID'])
             if os.path.isfile(savePath):
                 pass  # simply skip existing items

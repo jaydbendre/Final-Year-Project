@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # !!! # Crawl responsibly by identifying yourself (and your website/e-mail) on the user-agent
-USER_AGENT = "D20 (jaydbendre@yahoo.com)"
+USER_AGENT = "D20-new (jaydbendre@gmail.com)"
 
 # settings for spiders
 BOT_NAME = 'Twitter Scraper'
@@ -38,3 +38,5 @@ MYSQL_PWD = ""        # MySQL user's password
 
 CLOSESPIDER_TIMEOUT = 120
 CLOSESPIDER_PAGECOUNT = 30
+
+TELNETCONSOLE_ENABLED = False
