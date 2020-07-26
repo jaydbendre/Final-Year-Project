@@ -2,6 +2,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/reactnative,python,django,jupyternotebooks
 # Edit at https://www.toptal.com/developers/gitignore?templates=reactnative,python,django,jupyternotebooks
 
+Data/
 TweetScraper/Data/
 ### Django ###
 *.log
