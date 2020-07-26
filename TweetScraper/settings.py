@@ -36,5 +36,5 @@ MYSQL_TABLE = "scraper"  # the table will be created automatically
 MYSQL_USER = ""
 MYSQL_PWD = ""        # MySQL user's password
 
-CLOSESPIDER_TIMEOUT = 600
+CLOSESPIDER_TIMEOUT = 60
 CLOSESPIDER_PAGECOUNT = 30

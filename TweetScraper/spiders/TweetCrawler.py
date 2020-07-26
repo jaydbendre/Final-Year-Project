@@ -36,6 +36,9 @@ class TweetScraperClass(CrawlSpider):
 
         self.crawl_user = crawl_user
 
+        super(TweetScraperClass, self).__init__(
+            query=query, lang=lang, crawl_user=crawl_user, top_tweet=top_tweet)
+
     def start_requests(self):
         url = self.url % (quote(self.query), '')
         yield http.Request(url, callback=self.parse_page)
