@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 # !!! # Crawl responsibly by identifying yourself (and your website/e-mail) on the user-agent
-USER_AGENT = "D20-new (jaydbendre@gmail.com)"
+USER_AGENT = "D20-new-new (jaybendre123@gmail.com)"
 
 # settings for spiders
-BOT_NAME = 'Twitter Scraper'
+BOT_NAME = 'Twitter Scraper for D-20(new new new)'
 LOG_LEVEL = 'INFO'
 # from http://stackoverflow.com/a/31233576/2297751, TODO
 DOWNLOAD_HANDLERS = {'s3': None, }
@@ -37,6 +37,7 @@ MYSQL_USER = ""
 MYSQL_PWD = ""        # MySQL user's password
 
 CLOSESPIDER_TIMEOUT = 120
-CLOSESPIDER_PAGECOUNT = 30
+CLOSESPIDER_PAGECOUNT = 5
 
 TELNETCONSOLE_ENABLED = False
+ROBOTSTXT_OBEY = False

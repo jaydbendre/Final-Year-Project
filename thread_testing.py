@@ -12,7 +12,7 @@ from TweetScraper.spiders import TweetCrawler as t
 from scrapy.utils.project import get_project_settings
 
 search_terms_data = []
-with open("Search_terms_data/Storm.txt", "r") as f:
+with open("Search_terms_data/Drought.txt", "r") as f:
     search_terms_data = f.readline().split(",")
 
 """
