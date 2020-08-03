@@ -2,6 +2,10 @@
 
 # !!! # Crawl responsibly by identifying yourself (and your website/e-mail) on the user-agent
 USER_AGENT = "D20-new-new (jaybendre123@gmail.com)"
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+    'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
+}
 
 # settings for spiders
 BOT_NAME = 'Twitter Scraper for D-20(new new new)'
@@ -36,8 +40,9 @@ MYSQL_TABLE = "scraper"  # the table will be created automatically
 MYSQL_USER = ""
 MYSQL_PWD = ""        # MySQL user's password
 
-CLOSESPIDER_TIMEOUT = 120
-CLOSESPIDER_PAGECOUNT = 5
+# FAKEUSERAGENT_FALLBACK = 'Mozilla/5.0 (Android; Mobile; rv:40.0)'
+CLOSESPIDER_TIMEOUT = 600
+
 
 TELNETCONSOLE_ENABLED = False
 ROBOTSTXT_OBEY = False
