@@ -1,0 +1,1013 @@
+{
+    "1": {
+        "created_at": "Mon Apr 26 07:30:04 +0000 2010",
+        "id": 12870169175,
+        "id_str": "12870169175",
+        "text": "Early thermal weapons http://en.wikipedia.org/wiki/Early_thermal_weapons",
+        "truncated": false,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": []
+        },
+        "source": "<a href=\"http://twitter.com\" rel=\"nofollow\">Twitter Web Client</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 124412057,
+            "id_str": "124412057",
+            "name": "Wiki Random",
+            "screen_name": "wikirandom",
+            "location": "",
+            "description": "Every hour, a random article on Wikipedia (English)",
+            "url": null,
+            "entities": {
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 117,
+            "friends_count": 105,
+            "listed_count": 5,
+            "created_at": "Fri Mar 19 09:30:26 +0000 2010",
+            "favourites_count": 0,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 15284,
+            "lang": null,
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "131516",
+            "profile_background_image_url": "http://abs.twimg.com/images/themes/theme14/bg.gif",
+            "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme14/bg.gif",
+            "profile_background_tile": true,
+            "profile_image_url": "http://pbs.twimg.com/profile_images/772696621/wikirandom_normal.jpg",
+            "profile_image_url_https": "https://pbs.twimg.com/profile_images/772696621/wikirandom_normal.jpg",
+            "profile_link_color": "009999",
+            "profile_sidebar_border_color": "EEEEEE",
+            "profile_sidebar_fill_color": "EFEFEF",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "has_extended_profile": false,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": null,
+            "notifications": null,
+            "translator_type": "none"
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "favorited": false,
+        "retweeted": false,
+        "lang": "en"
+    },
+    "2": {
+        "created_at": "Tue Mar 01 14:30:03 +0000 2011",
+        "id": 42592438874943488,
+        "id_str": "42592438874943488",
+        "text": "http://bit.ly/fBN9zg Early thermal weapons #random",
+        "truncated": false,
+        "entities": {
+            "hashtags": [
+                {
+                    "text": "random",
+                    "indices": [
+                        43,
+                        50
+                    ]
+                }
+            ],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": []
+        },
+        "source": "<a href=\"http://dancommunity.com\" rel=\"nofollow\">DanCommunity</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 122383622,
+            "id_str": "122383622",
+            "name": "wiki_bot",
+            "screen_name": "wiki_bot",
+            "location": "web",
+            "description": "throwing random links from wikipedia",
+            "url": "http://t.co/YIiXUtqNzV",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http://t.co/YIiXUtqNzV",
+                            "expanded_url": "http://about.me/ibnu",
+                            "display_url": "about.me/ibnu",
+                            "indices": [
+                                0,
+                                22
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 192,
+            "friends_count": 0,
+            "listed_count": 3,
+            "created_at": "Fri Mar 12 14:28:00 +0000 2010",
+            "favourites_count": 0,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 70721,
+            "lang": null,
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "C0DEED",
+            "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http://pbs.twimg.com/profile_images/752028230/Wiki_bot_normal.png",
+            "profile_image_url_https": "https://pbs.twimg.com/profile_images/752028230/Wiki_bot_normal.png",
+            "profile_link_color": "1DA1F2",
+            "profile_sidebar_border_color": "C0DEED",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "has_extended_profile": false,
+            "default_profile": true,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": null,
+            "notifications": null,
+            "translator_type": "none"
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "favorited": false,
+        "retweeted": false,
+        "lang": "en"
+    },
+    "3": {
+        "created_at": "Sat May 07 12:09:01 +0000 2011",
+        "id": 66836933933928448,
+        "id_str": "66836933933928448",
+        "text": "(CONTD. FROM PREVIOUS) \u2192 Therefore we must strengthen the surveillance on Hamaoka Nuke Power Plant, because of future interplate earthquake.",
+        "truncated": false,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": []
+        },
+        "source": "<a href=\"http://twitter.com\" rel=\"nofollow\">Twitter Web Client</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 92426796,
+            "id_str": "92426796",
+            "name": "Yasuhide Watanabe",
+            "screen_name": "BeerBanzai",
+            "location": "Funbashi-City,Japan",
+            "description": "I work for fowarding company at Tokyo. \u2666\ufe0eI am professional on airfreight fowarding and ocean freight. \u2666\ufe0eDoes anyone here who\u2019d like to talk \u25ef with beer or sake?",
+            "url": null,
+            "entities": {
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 1213,
+            "friends_count": 2157,
+            "listed_count": 13,
+            "created_at": "Wed Nov 25 02:21:01 +0000 2009",
+            "favourites_count": 326,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 2196,
+            "lang": null,
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "B2DFDA",
+            "profile_background_image_url": "http://abs.twimg.com/images/themes/theme13/bg.gif",
+            "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme13/bg.gif",
+            "profile_background_tile": false,
+            "profile_image_url": "http://pbs.twimg.com/profile_images/569067345/DCF_0136_normal.JPG",
+            "profile_image_url_https": "https://pbs.twimg.com/profile_images/569067345/DCF_0136_normal.JPG",
+            "profile_banner_url": "https://pbs.twimg.com/profile_banners/92426796/1518323689",
+            "profile_link_color": "4465A6",
+            "profile_sidebar_border_color": "EEEEEE",
+            "profile_sidebar_fill_color": "FFFFFF",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "has_extended_profile": false,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": null,
+            "notifications": null,
+            "translator_type": "none"
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "favorited": false,
+        "retweeted": false,
+        "lang": "en"
+    },
+    "4": {
+        "created_at": "Sat Jun 11 20:25:39 +0000 2011",
+        "id": 79645490265866240,
+        "id_str": "79645490265866240",
+        "text": "@Sarahdrah this is about the early thermal weapons, I guess now they have more advanced weapons http://t.co/fLojC7x \u0627\u0644\u0623\u0633\u0644\u062d\u0629 \u0627\u0644\u062d\u0631\u0627\u0631\u064a\u0629",
+        "truncated": false,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": [
+                {
+                    "url": "http://t.co/fLojC7x",
+                    "expanded_url": "http://goo.gl/kkaGg",
+                    "display_url": "goo.gl/kkaGg",
+                    "indices": [
+                        96,
+                        115
+                    ]
+                }
+            ]
+        },
+        "source": "<a href=\"http://twitter.com\" rel=\"nofollow\">Twitter Web Client</a>",
+        "in_reply_to_status_id": 79642934445752320,
+        "in_reply_to_status_id_str": "79642934445752320",
+        "in_reply_to_user_id": 257143165,
+        "in_reply_to_user_id_str": "257143165",
+        "in_reply_to_screen_name": "Zlitniya",
+        "user": {
+            "id": 99856628,
+            "id_str": "99856628",
+            "name": "\u0627\u0644\u0645\u0646\u0627\u0631\u0629 \u0644\u0644\u0625\u0639\u0644\u0627\u0645",
+            "screen_name": "AlmanaraMedia",
+            "location": "Libya",
+            "description": "Establish since 2002 --\r\nWe are a media platform concerned in Libyan and Arab affairs. \r\nEveryone is welcome to join us on Facebook (http://t.co/aNgdN9Ypbm)",
+            "url": "https://t.co/x1XWi7HPDp",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "https://t.co/x1XWi7HPDp",
+                            "expanded_url": "http://almanaramedia.blogspot.com",
+                            "display_url": "almanaramedia.blogspot.com",
+                            "indices": [
+                                0,
+                                23
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": [
+                        {
+                            "url": "http://t.co/aNgdN9Ypbm",
+                            "expanded_url": "http://on.fb.me/eHhTmQ",
+                            "display_url": "on.fb.me/eHhTmQ",
+                            "indices": [
+                                133,
+                                155
+                            ]
+                        }
+                    ]
+                }
+            },
+            "protected": false,
+            "followers_count": 269422,
+            "friends_count": 1475,
+            "listed_count": 531,
+            "created_at": "Mon Dec 28 04:09:31 +0000 2009",
+            "favourites_count": 1705,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 104396,
+            "lang": null,
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "022330",
+            "profile_background_image_url": "http://abs.twimg.com/images/themes/theme15/bg.png",
+            "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme15/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http://pbs.twimg.com/profile_images/1204408021050281984/6Xw3Tca5_normal.jpg",
+            "profile_image_url_https": "https://pbs.twimg.com/profile_images/1204408021050281984/6Xw3Tca5_normal.jpg",
+            "profile_banner_url": "https://pbs.twimg.com/profile_banners/99856628/1575980665",
+            "profile_link_color": "0084B4",
+            "profile_sidebar_border_color": "A8C7F7",
+            "profile_sidebar_fill_color": "C0DFEC",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "has_extended_profile": false,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": null,
+            "notifications": null,
+            "translator_type": "none"
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "possibly_sensitive_appealable": false,
+        "lang": "ca"
+    },
+    "5": {
+        "created_at": "Fri Jan 13 10:44:46 +0000 2012",
+        "id": 157775084457701376,
+        "id_str": "157775084457701376",
+        "text": "Early thermal weapons: Mining (military), Siege engine, Fire ship, Greek fire, History of gunpowder, History of ... http://t.co/LD1RqStK",
+        "truncated": false,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": [
+                {
+                    "url": "http://t.co/LD1RqStK",
+                    "expanded_url": "http://amzn.to/zaQose",
+                    "display_url": "amzn.to/zaQose",
+                    "indices": [
+                        116,
+                        136
+                    ]
+                }
+            ]
+        },
+        "source": "<a href=\"http://twitterfeed.com\" rel=\"nofollow\">twitterfeed</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 430831584,
+            "id_str": "430831584",
+            "name": "Brock Snider",
+            "screen_name": "CluG1rleso",
+            "location": "",
+            "description": "",
+            "url": null,
+            "entities": {
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 43,
+            "friends_count": 0,
+            "listed_count": 0,
+            "created_at": "Wed Dec 07 16:27:32 +0000 2011",
+            "favourites_count": 0,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 20491,
+            "lang": null,
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "C0DEED",
+            "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png",
+            "profile_image_url_https": "https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png",
+            "profile_link_color": "1DA1F2",
+            "profile_sidebar_border_color": "C0DEED",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "has_extended_profile": false,
+            "default_profile": true,
+            "default_profile_image": true,
+            "following": null,
+            "follow_request_sent": null,
+            "notifications": null,
+            "translator_type": "none"
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "possibly_sensitive_appealable": false,
+        "lang": "en"
+    },
+    "6": {
+        "created_at": "Fri Mar 23 23:18:37 +0000 2012",
+        "id": 183331950092750849,
+        "id_str": "183331950092750849",
+        "text": "Now pondering this morning's M 5.6 in Australia: a strong, shallow interplate earthquake right in the centre of Oz. http://t.co/mcjiijPM",
+        "truncated": false,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": [
+                {
+                    "url": "http://t.co/mcjiijPM",
+                    "expanded_url": "http://on.doi.gov/GTL6T4",
+                    "display_url": "on.doi.gov/GTL6T4",
+                    "indices": [
+                        116,
+                        136
+                    ]
+                }
+            ]
+        },
+        "source": "<a href=\"http://www.echofon.com/\" rel=\"nofollow\">Echofon</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 21504735,
+            "id_str": "21504735",
+            "name": "Chris Rowan",
+            "screen_name": "Allochthonous",
+            "location": "Kent, OH",
+            "description": "Geologist, assistant professor, science blogger. I study plate motions, deforming continents and rock magnetism. I tweet as my inner geo-nerd wills.",
+            "url": "http://t.co/xlXUMZk37M",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http://t.co/xlXUMZk37M",
+                            "expanded_url": "http://all-geo.org/highlyallochthonous",
+                            "display_url": "all-geo.org/highlyallochth\u2026",
+                            "indices": [
+                                0,
+                                22
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 8794,
+            "friends_count": 1105,
+            "listed_count": 538,
+            "created_at": "Sat Feb 21 18:17:46 +0000 2009",
+            "favourites_count": 1799,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 21553,
+            "lang": null,
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "709397",
+            "profile_background_image_url": "http://abs.twimg.com/images/themes/theme6/bg.gif",
+            "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme6/bg.gif",
+            "profile_background_tile": true,
+            "profile_image_url": "http://pbs.twimg.com/profile_images/295234884/Chris_R2_normal.jpg",
+            "profile_image_url_https": "https://pbs.twimg.com/profile_images/295234884/Chris_R2_normal.jpg",
+            "profile_banner_url": "https://pbs.twimg.com/profile_banners/21504735/1406062277",
+            "profile_link_color": "1B469E",
+            "profile_sidebar_border_color": "86A4A6",
+            "profile_sidebar_fill_color": "A0C5C7",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "has_extended_profile": false,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": null,
+            "notifications": null,
+            "translator_type": "none"
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "possibly_sensitive_appealable": false,
+        "lang": "en"
+    },
+    "7": {
+        "created_at": "Thu Jun 14 23:18:11 +0000 2012",
+        "id": 213410034149888000,
+        "id_str": "213410034149888000",
+        "text": "Thank you @castle_of_now Sahel Drought 2012 | Humanitarian Coalition - http://t.co/WCbWNpRL via @humcoalition #sahel",
+        "truncated": false,
+        "entities": {
+            "hashtags": [
+                {
+                    "text": "sahel",
+                    "indices": [
+                        110,
+                        116
+                    ]
+                }
+            ],
+            "symbols": [],
+            "user_mentions": [
+                {
+                    "screen_name": "castle_of_now",
+                    "name": "Kristen Armstrong",
+                    "id": 361355761,
+                    "id_str": "361355761",
+                    "indices": [
+                        10,
+                        24
+                    ]
+                },
+                {
+                    "screen_name": "humcoalition",
+                    "name": "HumanitarianCoalitionHumanitaire",
+                    "id": 104902472,
+                    "id_str": "104902472",
+                    "indices": [
+                        96,
+                        109
+                    ]
+                }
+            ],
+            "urls": [
+                {
+                    "url": "http://t.co/WCbWNpRL",
+                    "expanded_url": "http://humanitariancoalition.ca/our-appeals/sahel-drought-2012",
+                    "display_url": "humanitariancoalition.ca/our-appeals/sa\u2026",
+                    "indices": [
+                        71,
+                        91
+                    ]
+                }
+            ]
+        },
+        "source": "<a href=\"http://www.hootsuite.com\" rel=\"nofollow\">Hootsuite</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 104902472,
+            "id_str": "104902472",
+            "name": "HumanitarianCoalitionHumanitaire",
+            "screen_name": "humcoalition",
+            "location": "Ottawa, Canada",
+            "description": "@acfcanada @CanLWR  @carecanada @Foodgrains @HI_Canada  @IRCanada @MdMCanada @OxfamCanada @OxfamQuebec @PlanCanada @SaveChildrenCan @worldvisioncan",
+            "url": "https://t.co/seAFGbfaLe",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "https://t.co/seAFGbfaLe",
+                            "expanded_url": "https://www.humanitariancoalition.ca/",
+                            "display_url": "humanitariancoalition.ca",
+                            "indices": [
+                                0,
+                                23
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 3976,
+            "friends_count": 933,
+            "listed_count": 131,
+            "created_at": "Thu Jan 14 19:14:02 +0000 2010",
+            "favourites_count": 3249,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 9917,
+            "lang": null,
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "B52025",
+            "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http://pbs.twimg.com/profile_images/926172610332909568/HdI34d3k_normal.jpg",
+            "profile_image_url_https": "https://pbs.twimg.com/profile_images/926172610332909568/HdI34d3k_normal.jpg",
+            "profile_banner_url": "https://pbs.twimg.com/profile_banners/104902472/1596921972",
+            "profile_link_color": "1B95E0",
+            "profile_sidebar_border_color": "FFFFFF",
+            "profile_sidebar_fill_color": "666666",
+            "profile_text_color": "666666",
+            "profile_use_background_image": false,
+            "has_extended_profile": false,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": null,
+            "notifications": null,
+            "translator_type": "none"
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 1,
+        "favorite_count": 0,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "possibly_sensitive_appealable": false,
+        "lang": "en"
+    },
+    "8": {
+        "created_at": "Fri Jun 15 19:24:01 +0000 2012",
+        "id": 213713489439629312,
+        "id_str": "213713489439629312",
+        "text": "Sahel Drought 2012: One Million Children At Risk Of Starvation http://t.co/Xd2NQ9Gn via @HuffPostWorld",
+        "truncated": false,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [
+                {
+                    "screen_name": "HuffPostWorld",
+                    "name": "HuffPost World",
+                    "id": 1707803216,
+                    "id_str": "1707803216",
+                    "indices": [
+                        88,
+                        102
+                    ]
+                }
+            ],
+            "urls": [
+                {
+                    "url": "http://t.co/Xd2NQ9Gn",
+                    "expanded_url": "http://huff.to/I3jywa",
+                    "display_url": "huff.to/I3jywa",
+                    "indices": [
+                        63,
+                        83
+                    ]
+                }
+            ]
+        },
+        "source": "<a href=\"https://dev.twitter.com/docs/tfw\" rel=\"nofollow\">Twitter for Websites</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 290159609,
+            "id_str": "290159609",
+            "name": "Julie Marshall",
+            "screen_name": "JulieMarshall2",
+            "location": "Ontario Canada",
+            "description": "Canadian Spokesperson for the United Nations World Food Programme. Views are my own.",
+            "url": "https://t.co/YSyzdwqljP",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "https://t.co/YSyzdwqljP",
+                            "expanded_url": "http://www.wfp.org",
+                            "display_url": "wfp.org",
+                            "indices": [
+                                0,
+                                23
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 1439,
+            "friends_count": 901,
+            "listed_count": 43,
+            "created_at": "Fri Apr 29 20:37:46 +0000 2011",
+            "favourites_count": 2985,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 4611,
+            "lang": null,
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "C0DEED",
+            "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http://pbs.twimg.com/profile_images/1076184059326418945/OBgOaQEK_normal.jpg",
+            "profile_image_url_https": "https://pbs.twimg.com/profile_images/1076184059326418945/OBgOaQEK_normal.jpg",
+            "profile_banner_url": "https://pbs.twimg.com/profile_banners/290159609/1594144261",
+            "profile_link_color": "1DA1F2",
+            "profile_sidebar_border_color": "C0DEED",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "has_extended_profile": false,
+            "default_profile": true,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": null,
+            "notifications": null,
+            "translator_type": "none"
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "possibly_sensitive_appealable": false,
+        "lang": "en"
+    },
+    "9": {
+        "created_at": "Mon Jun 18 22:12:31 +0000 2012",
+        "id": 214843060641730562,
+        "id_str": "214843060641730562",
+        "text": "I posted 3 photos on Facebook in the album \"Sahel Drought 2012 / S\u00e9cheresse au Sahel 2012\" http://t.co/6mo5VQ3d",
+        "truncated": false,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [],
+            "urls": [
+                {
+                    "url": "http://t.co/6mo5VQ3d",
+                    "expanded_url": "http://fb.me/1sqOEdoRE",
+                    "display_url": "fb.me/1sqOEdoRE",
+                    "indices": [
+                        91,
+                        111
+                    ]
+                }
+            ]
+        },
+        "source": "<a href=\"http://www.facebook.com/twitter\" rel=\"nofollow\">Facebook</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 104902472,
+            "id_str": "104902472",
+            "name": "HumanitarianCoalitionHumanitaire",
+            "screen_name": "humcoalition",
+            "location": "Ottawa, Canada",
+            "description": "@acfcanada @CanLWR  @carecanada @Foodgrains @HI_Canada  @IRCanada @MdMCanada @OxfamCanada @OxfamQuebec @PlanCanada @SaveChildrenCan @worldvisioncan",
+            "url": "https://t.co/seAFGbfaLe",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "https://t.co/seAFGbfaLe",
+                            "expanded_url": "https://www.humanitariancoalition.ca/",
+                            "display_url": "humanitariancoalition.ca",
+                            "indices": [
+                                0,
+                                23
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 3976,
+            "friends_count": 933,
+            "listed_count": 131,
+            "created_at": "Thu Jan 14 19:14:02 +0000 2010",
+            "favourites_count": 3249,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 9917,
+            "lang": null,
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "B52025",
+            "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http://pbs.twimg.com/profile_images/926172610332909568/HdI34d3k_normal.jpg",
+            "profile_image_url_https": "https://pbs.twimg.com/profile_images/926172610332909568/HdI34d3k_normal.jpg",
+            "profile_banner_url": "https://pbs.twimg.com/profile_banners/104902472/1596921972",
+            "profile_link_color": "1B95E0",
+            "profile_sidebar_border_color": "FFFFFF",
+            "profile_sidebar_fill_color": "666666",
+            "profile_text_color": "666666",
+            "profile_use_background_image": false,
+            "has_extended_profile": false,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": null,
+            "notifications": null,
+            "translator_type": "none"
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "possibly_sensitive_appealable": false,
+        "lang": "en"
+    },
+    "10": {
+        "created_at": "Thu Jun 21 17:16:14 +0000 2012",
+        "id": 215855661857259520,
+        "id_str": "215855661857259520",
+        "text": "I uploaded a @YouTube video http://t.co/I7K6nlTZ Sahel drought appeal launch news conference - 2012",
+        "truncated": false,
+        "entities": {
+            "hashtags": [],
+            "symbols": [],
+            "user_mentions": [
+                {
+                    "screen_name": "YouTube",
+                    "name": "YouTube",
+                    "id": 10228272,
+                    "id_str": "10228272",
+                    "indices": [
+                        13,
+                        21
+                    ]
+                }
+            ],
+            "urls": [
+                {
+                    "url": "http://t.co/I7K6nlTZ",
+                    "expanded_url": "http://youtu.be/AwNhfqIi9sA?a",
+                    "display_url": "youtu.be/AwNhfqIi9sA?a",
+                    "indices": [
+                        28,
+                        48
+                    ]
+                }
+            ]
+        },
+        "source": "<a href=\"https://www.google.com/\" rel=\"nofollow\">Google</a>",
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 104902472,
+            "id_str": "104902472",
+            "name": "HumanitarianCoalitionHumanitaire",
+            "screen_name": "humcoalition",
+            "location": "Ottawa, Canada",
+            "description": "@acfcanada @CanLWR  @carecanada @Foodgrains @HI_Canada  @IRCanada @MdMCanada @OxfamCanada @OxfamQuebec @PlanCanada @SaveChildrenCan @worldvisioncan",
+            "url": "https://t.co/seAFGbfaLe",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "https://t.co/seAFGbfaLe",
+                            "expanded_url": "https://www.humanitariancoalition.ca/",
+                            "display_url": "humanitariancoalition.ca",
+                            "indices": [
+                                0,
+                                23
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 3976,
+            "friends_count": 933,
+            "listed_count": 131,
+            "created_at": "Thu Jan 14 19:14:02 +0000 2010",
+            "favourites_count": 3249,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 9917,
+            "lang": null,
+            "contributors_enabled": false,
+            "is_translator": false,
+            "is_translation_enabled": false,
+            "profile_background_color": "B52025",
+            "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http://pbs.twimg.com/profile_images/926172610332909568/HdI34d3k_normal.jpg",
+            "profile_image_url_https": "https://pbs.twimg.com/profile_images/926172610332909568/HdI34d3k_normal.jpg",
+            "profile_banner_url": "https://pbs.twimg.com/profile_banners/104902472/1596921972",
+            "profile_link_color": "1B95E0",
+            "profile_sidebar_border_color": "FFFFFF",
+            "profile_sidebar_fill_color": "666666",
+            "profile_text_color": "666666",
+            "profile_use_background_image": false,
+            "has_extended_profile": false,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": null,
+            "notifications": null,
+            "translator_type": "none"
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "is_quote_status": false,
+        "retweet_count": 0,
+        "favorite_count": 0,
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false,
+        "possibly_sensitive_appealable": false,
+        "lang": "en"
+    }
+}
