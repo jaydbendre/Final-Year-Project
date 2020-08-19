@@ -3,6 +3,8 @@ import json
 import base64
 import pandas as pd
 import time
+import numpy as np
+from geopy.geocoders import Nominatim
 
 
 class LocationUsingAPI():
@@ -10,8 +12,10 @@ class LocationUsingAPI():
     Used to obtain location from a tweet
     """
 
-    def __init__(self):
+    def __init__(self, starting_index, batch_size=100):
         self.error_codes = [400, 401, 403, 404, 429, 444, 499]
+        self.starting_index = starting_index
+        self.batch_size = batch_size
 
     def authorise(self):
         creds = dict()
@@ -55,9 +59,15 @@ class LocationUsingAPI():
             )
 
             status_code = list()
-            twitter_id = twitter_data["ID"]
+            twitter_id = twitter_data["ID"][self.starting_index:
+                                            self.starting_index+self.batch_size]
+            with open("last_position_updated.txt", "w") as f:
+                f.write(str(self.starting_index+self.batch_size))
+            i = 0
             geo_data_dictionary = dict()
             for t_id in twitter_id:
+                print("Tweet {} analyzed".format(i+1))
+                i += 1
                 search_url = "https://api.twitter.com/1.1/statuses/show.json"
 
                 search_params = {
@@ -73,9 +83,11 @@ class LocationUsingAPI():
                             time.sleep(60)
                             break
                     continue
+                elif len(status_code) == self.batch_size:
+                    break
                 else:
                     tweet_data = search_resp.json()
-                    geo_data_dictionary[i] = tweet_data
+                    geo_data_dictionary[tweet_data["id"]] = tweet_data
 
             with open("geoData.json", "w") as f:
                 json.dump(geo_data_dictionary, f)
@@ -85,6 +97,50 @@ class LocationUsingAPI():
             return {"Error": "No data found , {} error".format(auth_resp.status_code)}
 
     def populate_csv(self, data_dictionary):
-        def handle_record(self, item):
-            pass
+        geolocator = Nominatim(user_agent="soulage")
+        print(data_dictionary.keys())
+
+        def handle_record(item):
+
+            if data_dictionary[item]["geo"] == None and data_dictionary[item]["place"] == None and data_dictionary[item]["coordinates"] == None:
+                user_location = data_dictionary[item]["user"]["location"]
+                if user_location == "":
+                    return np.NaN
+                else:
+                    return user_location
+            else:
+                place = data_dictionary[item]["place"]["full_name"]
+                return place
+
+        def update_coords(item):
+            if item == "":
+                return np.NaN
+            else:
+                location = geolocator.geocode(item)
+                if location == None:
+                    return np.NaN
+                return (location.latitude, location.longitude)
+
+        twitter_data = pd.DataFrame(
+            pd.read_csv("CollectedData.csv")
+        )
+
+        twitter_data = twitter_data[self.starting_index:
+                                    self.starting_index+self.batch_size - 1]
+        twitter_data["location"] = twitter_data["ID"].apply(handle_record, 1)
+
+        twitter_data["coordinates"] = twitter_data["location"].apply(
+            update_coords, 1)
+        with open("updatedCollectedData.csv", "w", encoding="utf-8") as f:
+            twitter_data.to_csv(f, index=False, encoding="utf-8")
         pass
+
+
+starting_index = 0
+with open("last_position_updated.txt", "r") as f:
+    starting_index = int(f.read())
+
+obj = LocationUsingAPI(starting_index, 20)
+
+data_dictionary = obj.extract_location()
+obj.populate_csv(data_dictionary)
