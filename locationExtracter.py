@@ -101,7 +101,7 @@ class LocationUsingAPI():
         print(data_dictionary.keys())
 
         def handle_record(item):
-
+            item = str(item)
             if data_dictionary[item]["geo"] == None and data_dictionary[item]["place"] == None and data_dictionary[item]["coordinates"] == None:
                 user_location = data_dictionary[item]["user"]["location"]
                 if user_location == "":
@@ -109,6 +109,8 @@ class LocationUsingAPI():
                 else:
                     return user_location
             else:
+                if data_dictionary[item]["place"] == None:
+                    return np.NaN
                 place = data_dictionary[item]["place"]["full_name"]
                 return place
 
@@ -137,10 +139,13 @@ class LocationUsingAPI():
 
 
 starting_index = 0
-with open("last_position_updated.txt", "r") as f:
-    starting_index = int(f.read())
+# with open("last_position_updated.txt", "r") as f:
+#     starting_index = int(f.read())
 
-obj = LocationUsingAPI(starting_index, 20)
+obj = LocationUsingAPI(starting_index, 1000)
 
-data_dictionary = obj.extract_location()
+data_dictionary = dict()
+# data_dictionary = obj.extract_location()
+with open("geoData.json", "r", encoding="utf-8") as f:
+    data_dictionary = json.load(f)
 obj.populate_csv(data_dictionary)

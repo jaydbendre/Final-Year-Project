@@ -41,7 +41,7 @@ MYSQL_USER = ""
 MYSQL_PWD = ""        # MySQL user's password
 
 # FAKEUSERAGENT_FALLBACK = 'Mozilla/5.0 (Android; Mobile; rv:40.0)'
-CLOSESPIDER_TIMEOUT = 600
+CLOSESPIDER_TIMEOUT = 900
 
 
 TELNETCONSOLE_ENABLED = False

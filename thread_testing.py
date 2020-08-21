@@ -12,8 +12,8 @@ from TweetScraper.spiders import TweetCrawler as t
 from scrapy.utils.project import get_project_settings
 
 search_terms_data = []
-with open("Search_terms_data/result.txt", "r") as f:
-    search_terms_data = f.readline().split(",")
+with open("Search_terms_data/cleanKeywords.txt", "r", encoding="utf-8") as f:
+    search_terms_data = [x.strip() for x in f.readline().split(",")]
 
 """
 Threading attempt starts here
@@ -106,8 +106,9 @@ Threading Attempt ends here
 """
 Linear Approach works fine
 """
-program_starts = time.time()
-search_terms_data = search_terms_data[:300]
+
+search_terms_data = search_terms_data[:500]
+
 for term in search_terms_data:
     process.crawl(t.TweetScraperClass, query=term,
                   lang="eng", crawl_user=True)
