@@ -24,4 +24,5 @@ with open("result.txt", "r") as file:
 
 with open("cleanKeywords.txt", "w") as file:
     for d in data:
+        d = d.strip()
         file.write(d+",")
