@@ -107,7 +107,7 @@ Threading Attempt ends here
 Linear Approach works fine
 """
 
-search_terms_data = search_terms_data[:500]
+search_terms_data = search_terms_data[1500:2000]
 
 for term in search_terms_data:
     process.crawl(t.TweetScraperClass, query=term,
