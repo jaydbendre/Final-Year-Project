@@ -1,9 +1,10 @@
 
 # Created by https://www.toptal.com/developers/gitignore/api/reactnative,python,django,jupyternotebooks
 # Edit at https://www.toptal.com/developers/gitignore?templates=reactnative,python,django,jupyternotebooks
-
+.vscode/
 Data/
 TweetScraper/Data/
+Data Collection and Preprocessing/Data Gathered/Data/
 ### Django ###
 *.log
 *.pot
