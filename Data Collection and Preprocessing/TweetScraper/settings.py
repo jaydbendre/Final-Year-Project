@@ -22,8 +22,8 @@ ITEM_PIPELINES = {
 }
 
 # settings for where to save data on disk
-SAVE_TWEET_PATH = '../Data Gathered/Data/tweet/'
-SAVE_USER_PATH = '../Data Gathered/Data/user/'
+SAVE_TWEET_PATH = '../Data Collection and Preprocessing/Data Gathered/Data/tweet/'
+SAVE_USER_PATH = '../Data Collection and Preprocessing/Data Gathered/Data/user/'
 
 # settings for mongodb
 MONGODB_SERVER = "127.0.0.1"
@@ -41,7 +41,7 @@ MYSQL_USER = ""
 MYSQL_PWD = ""        # MySQL user's password
 
 # FAKEUSERAGENT_FALLBACK = 'Mozilla/5.0 (Android; Mobile; rv:40.0)'
-CLOSESPIDER_TIMEOUT = 900
+CLOSESPIDER_TIMEOUT = 6000
 
 
 TELNETCONSOLE_ENABLED = False

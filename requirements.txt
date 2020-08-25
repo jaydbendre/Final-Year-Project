@@ -1,4 +1,6 @@
+aiohttp==3.6.2
 asgiref==3.2.10
+async-timeout==3.0.1
 attrs==20.1.0
 Automat==20.2.0
 certifi==2020.6.20
@@ -11,6 +13,7 @@ cssselect==1.1.0
 defusedxml==0.7.0rc1
 Django==3.1
 djangorestframework==3.11.1
+download-twitter-resources==0.2.2
 geographiclib==1.50
 geopy==2.0.0
 hyperlink==20.0.1
@@ -22,6 +25,7 @@ jmespath==0.10.0
 joblib==0.16.0
 jwt==1.0.0
 lxml==4.5.2
+multidict==4.7.6
 nltk==3.5
 numpy==1.19.1
 oauthlib==3.1.0
@@ -56,4 +60,5 @@ tweetscraper==1.2.6
 Twisted==20.3.0
 urllib3==1.25.10
 w3lib==1.22.0
+yarl==1.5.1
 zope.interface==5.1.0
