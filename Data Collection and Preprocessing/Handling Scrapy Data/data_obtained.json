@@ -1,0 +1,1 @@
+{"errors": [{"resource_id": "1297759418969468928", "section": "data", "title": "Authorization Error", "detail": "Sorry, you are not authorized to see this Tweet.", "resource_type": "tweet", "type": "https://api.twitter.com/labs/2/problems/not-authorized-for-resource"}]}
