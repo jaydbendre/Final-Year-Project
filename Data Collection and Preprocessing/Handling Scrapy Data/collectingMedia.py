@@ -58,18 +58,19 @@ class MediaExtracter():
         twitter_data = pd.DataFrame(pd.read_csv(
             "../Data Gathered/CollectedData.csv"))
 
-        tweet_id = 1297759418969468928
-
+        # tweet_id = 1297759418969468928
+        tweet_id = 1256720280434720000
         parameters = "?expansions=attachments.poll_ids,attachments.media_keys,author_id,entities.mentions.username,geo.place_id,in_reply_to_user_id,referenced_tweets.id,referenced_tweets.id.author_id&media.fields=duration_ms,height,media_key,preview_image_url,type,url,width,public_metrics,non_public_metrics,organic_metrics,promoted_metrics&place.fields=contained_within,country,country_code,full_name,geo,id,name,place_type"
-        complete_url = self.base_url + \
-            str(tweet_id) + parameters
+        # # complete_url = self.base_url + \
+        #     str(tweet_id) + parameters
+        complete_url = self.base_url + str(tweet_id)
 
         resp = requests.get(complete_url, headers=request_headers)
         retrieved_data = resp.json()
 
-        with open("data_obtained.json", "w", encoding="utf-8") as f:
-            json.dump(retrieved_data, f)
-
+        # with open("data_obtained.json", "w", encoding="utf-8") as f:
+        #     json.dump(retrieved_data, f)
+        print(retrieved_data)
 
 obj = MediaExtracter()
 obj.mediaCollector()
