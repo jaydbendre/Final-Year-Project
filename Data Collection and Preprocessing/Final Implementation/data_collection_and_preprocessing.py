@@ -116,8 +116,40 @@ class DataCollectionAndPreprocessing():
         pass
 
     def locationFromText(self, df):
+        st = StanfordNERTagger('./NER Parser/stanford-ner-4.0.0/classifiers/english.all.3class.distsim.crf.ser.gz',
+                       './stanford-ner-4.0.0/stanford-ner.jar', encoding='utf-8')
 
-        pass
+        # Assigning df['location_from_text'] with empty
+        df['location_from_text'] = np.nan
+
+        # Getting the Tweet content
+        text_arr = df[['text']].values.tolist()
+        
+        location_arr = df[['location_from_text']].values.tolist()
+
+        # Extracting Locations from Tweet Text
+        for i,j in enumerate(text_arr):
+            locations = ''
+            temp = [ i.capitalize() for i in text.split(' ')]
+            text = ''
+            for i in temp:
+                text += (i + ' ')
+                
+            text = text[:-1]
+
+            tokenized_text = word_tokenize(text)
+            classified_text = st.tag(tokenized_text)
+            
+            for i in classified_text:
+                if i[1] == 'LOCATION':
+                    locations += i[0] + ","
+
+            location_arr[i] = locations[:-1]
+        
+        # Assigning the location_from_text to dataframe
+        df['location_from_text'] = location_arr
+
+        return df
 
     """
     Getting exact coordinates using Geopy and twitter api
