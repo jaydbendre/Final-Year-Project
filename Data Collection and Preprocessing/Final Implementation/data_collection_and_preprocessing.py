@@ -26,7 +26,7 @@ class DataCollectionAndPreprocessing():
     """
 
     def __init__(self):
-        self.error_codes = [400, 401, 403, 404, 429, 444, 499]
+        pass
 
     """
     Get bearer token authorisation using Twitter API credentials

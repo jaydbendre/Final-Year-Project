@@ -4,6 +4,7 @@ import base64
 import pandas as pd
 import numpy as np
 import time
+import urllib.request
 
 
 class MediaDownloadTwitter():
@@ -14,7 +15,7 @@ class MediaDownloadTwitter():
 
     def authorise(self):
         creds = dict()
-        with open("../TwitterCred.json", "r") as f:
+        with open("../../TwitterCred.json", "r") as f:
             creds = json.load(f)
 
         key_secret = "{}:{}".format(
@@ -60,10 +61,19 @@ class MediaDownloadTwitter():
             search_resp = requests.get(
                 search_url, headers=search_headers)
 
-            data = search_resp.json()
+            with open("media.json", "w", encoding="utf-8") as f:
+                f.write(search_resp.text)
+            data = json.loads(search_resp.text, encoding="utf-8")
+            urllib.request.urlretrieve(
+                "https://pbs.twimg.com/news_img/1296135191422001155/pTGTA8kz?format=jpg&name=150x150", "{}.png".format(id))
+            return
+            media = data["includes"]["media"][0]
 
-            for k, v in data.items():
+            if media["type"] == "video":
+                video_data = media["preview_image_url"]
+                urllib.request.urlretrieve(video_data, "{}.png".format(id))
+            for k, v in media.items():
                 print(k, "\t", v)
 
 
-MediaDownloadTwitter().download_media(1297512878203973637)
+MediaDownloadTwitter().download_media(1296135190973210624)
