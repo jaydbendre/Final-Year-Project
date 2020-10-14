@@ -99,25 +99,11 @@ class DataCollectionAndPreprocessing():
 
         for i in range(len(search_words)):
 
-            streamListener = DataCollectionStreamListener(search_words[i])
+            streamListener = DataCollectionStreamListener(search_words[i], 30)
             stream = tw.Stream(
-                auth=api.auth, listener=DataCollectionStreamListener(search_words[i]))
+                auth=api.auth, listener=DataCollectionStreamListener(search_words[i], 30))
 
             stream.filter(track=[search_words[i]], is_async=True)
-            # tweets = tw.Cursor(
-        #     api.search, q=search_words[0], lang="en", since=datetime.datetime.now().date()).items(10)
-
-        # if os.path.isdir("Data Gathered") == False:
-        #     os.mkdir("Data Gathered")
-
-        #     if os.path.isdir("Data Gathered/{}".format(search_words[0])) == False:
-        #         os.mkdir("Data Gathered/{}".format(search_words[0]))
-
-        # parent_dir = "Data Gathered/{}/".format(search_words[0])
-        # for tweet in tweets:
-        #     with open(parent_dir+"{}.json".format(tweet.id), "w", encoding="utf-8") as f:
-        #         json.dump(tweet._json, f)
-        pass
 
     """
     Convert collected data from folders to an aggregated CSV
@@ -267,21 +253,28 @@ class DataCollectionAndPreprocessing():
 
 class DataCollectionStreamListener(tw.StreamListener):
 
-    def __init__(self, search_term):
+    def __init__(self, search_term, limit):
         super().__init__()
         self.search_term = search_term
+        self.limit = limit
+        self.start_time = time.time()
 
     def on_status(self, status):
         # print(status)
-        if os.path.isdir("Data Gathered") == False:
-            os.mkdir("Data Gathered")
+        if(time.time() - self.start_time) < self.limit:
+            if os.path.isdir("Data Gathered") == False:
+                os.mkdir("Data Gathered")
 
-        if os.path.isdir("Data Gathered/{}".format(self.search_term)) == False:
-            os.mkdir("Data Gathered/{}".format(self.search_term))
+            if os.path.isdir("Data Gathered/{}".format(self.search_term)) == False:
+                os.mkdir("Data Gathered/{}".format(self.search_term))
 
-        parent_dir = "Data Gathered/{}/".format(self.search_term)
-        with open(parent_dir+"{}.json".format(status.id), "w", encoding="utf-8") as f:
-            json.dump(status._json, f)
+            parent_dir = "Data Gathered/{}/".format(self.search_term)
+            with open(parent_dir+"{}.json".format(status.id), "w", encoding="utf-8") as f:
+                json.dump(status._json, f)
+
+            return True
+        else:
+            return False
 
 
 # DataCollectionAndPreprocessing().invoke_scrapy()
