@@ -97,12 +97,14 @@ class DataCollectionAndPreprocessing():
                               creds["access_secret"])
         api = tw.API(auth, wait_on_rate_limit=True)
 
-        streamListener = DataCollectionStreamListener(search_words[0])
-        stream = tw.Stream(
-            auth=api.auth, listener=DataCollectionStreamListener(search_words[0]))
+        for i in range(len(search_words)):
 
-        stream.filter(track=[search_words[0]], async=True)
-        # tweets = tw.Cursor(
+            streamListener = DataCollectionStreamListener(search_words[i])
+            stream = tw.Stream(
+                auth=api.auth, listener=DataCollectionStreamListener(search_words[i]))
+
+            stream.filter(track=[search_words[i]], is_async=True)
+            # tweets = tw.Cursor(
         #     api.search, q=search_words[0], lang="en", since=datetime.datetime.now().date()).items(10)
 
         # if os.path.isdir("Data Gathered") == False:
@@ -270,11 +272,12 @@ class DataCollectionStreamListener(tw.StreamListener):
         self.search_term = search_term
 
     def on_status(self, status):
+        # print(status)
         if os.path.isdir("Data Gathered") == False:
             os.mkdir("Data Gathered")
 
-            if os.path.isdir("Data Gathered/{}".format(self.search_term)) == False:
-                os.mkdir("Data Gathered/{}".format(self.search_term))
+        if os.path.isdir("Data Gathered/{}".format(self.search_term)) == False:
+            os.mkdir("Data Gathered/{}".format(self.search_term))
 
         parent_dir = "Data Gathered/{}/".format(self.search_term)
         with open(parent_dir+"{}.json".format(status.id), "w", encoding="utf-8") as f:
