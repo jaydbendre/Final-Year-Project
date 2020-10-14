@@ -8,6 +8,7 @@ import requests
 import base64
 import pandas as pd
 import numpy as np
+import tweepy as tw
 from geopy.geocoders import Nominatim
 from scrapy.crawler import CrawlerProcess
 from TweetScraper.spiders import TweetCrawler as t
@@ -34,7 +35,7 @@ class DataCollectionAndPreprocessing():
 
     def authorise_API(self):
         creds = dict()
-        with open("../../ourTwitterCred.json", "r") as f:
+        with open("TwitterCred.json", "r") as f:
             creds = json.load(f)
 
         key_secret = "{}:{}".format(
@@ -64,26 +65,64 @@ class DataCollectionAndPreprocessing():
     Deploy Scrapy to store data into folders inside /Data Gathered/Data
     """
 
-    def invoke_scrapy(self):
-        search_terms = list()
-        with open("cleanKeywords.txt", "r") as f:
-            search_terms = [x.strip() for x in f.readline().split(",")]
+    # def invoke_scrapy(self):
+    #     search_terms = list()
+    #     with open("cleanKeywords.txt", "r") as f:
+    #         search_terms = [x.strip() for x in f.readline().split(",")]
 
-        process = CrawlerProcess(get_project_settings())
+    #     process = CrawlerProcess(get_project_settings())
 
-        for s in search_terms:
-            process.crawl(t.TweetScraperClass, query=s,
-                          lang="eng", crawl_user=True)
-            time.sleep(1)
+    #     for s in search_terms:
+    #         process.crawl(t.TweetScraper, query=s)
+    #         # time.sleep(1)
 
-        process.start()
+    #     process.start()
+    """
+    Data collection using tweepy
+    """
+
+    def collectingDataUsingApi(self):
+        search_words = []
+        with open("cleanKeywords.txt", "r", encoding="utf-8") as f:
+            search_words = f.readline().split(",")
+
+        # print(search_words)
+        creds = dict()
+
+        with open("TwitterCred.json", "r") as f:
+            creds = dict(json.load(f))
+
+        auth = tw.OAuthHandler(creds["api_key"], creds["api_secret"])
+        auth.set_access_token(creds["access_token"],
+                              creds["access_secret"])
+        api = tw.API(auth, wait_on_rate_limit=True)
+
+        streamListener = DataCollectionStreamListener(search_words[0])
+        stream = tw.Stream(
+            auth=api.auth, listener=DataCollectionStreamListener(search_words[0]))
+
+        stream.filter(track=[search_words[0]], async=True)
+        # tweets = tw.Cursor(
+        #     api.search, q=search_words[0], lang="en", since=datetime.datetime.now().date()).items(10)
+
+        # if os.path.isdir("Data Gathered") == False:
+        #     os.mkdir("Data Gathered")
+
+        #     if os.path.isdir("Data Gathered/{}".format(search_words[0])) == False:
+        #         os.mkdir("Data Gathered/{}".format(search_words[0]))
+
+        # parent_dir = "Data Gathered/{}/".format(search_words[0])
+        # for tweet in tweets:
+        #     with open(parent_dir+"{}.json".format(tweet.id), "w", encoding="utf-8") as f:
+        #         json.dump(tweet._json, f)
+        pass
 
     """
     Convert collected data from folders to an aggregated CSV
     """
 
     def convert_folder_to_csv(self):
-        folder_path = "../Data Gathered/Data/*"
+        folder_path = "../Data Gathered/*"
         folders = glob.glob(folder_path)
 
         aggregated_data = list()
@@ -113,39 +152,46 @@ class DataCollectionAndPreprocessing():
             df.to_csv(file, index=False)
 
     def clean_csv(self):
+        df = pd.DataFrame(
+            pd.read_csv(
+                "CollectedData.csv"
+            )
+        )
+
+        print(df.head())
         pass
 
     def locationFromText(self, df):
         st = StanfordNERTagger('./NER Parser/stanford-ner-4.0.0/classifiers/english.all.3class.distsim.crf.ser.gz',
-                       './stanford-ner-4.0.0/stanford-ner.jar', encoding='utf-8')
+                               './stanford-ner-4.0.0/stanford-ner.jar', encoding='utf-8')
 
         # Assigning df['location_from_text'] with empty
         df['location_from_text'] = np.nan
 
         # Getting the Tweet content
         text_arr = df[['text']].values.tolist()
-        
+
         location_arr = df[['location_from_text']].values.tolist()
 
         # Extracting Locations from Tweet Text
-        for i,j in enumerate(text_arr):
+        for i, j in enumerate(text_arr):
             locations = ''
-            temp = [ i.capitalize() for i in text.split(' ')]
+            temp = [i.capitalize() for i in text.split(' ')]
             text = ''
             for i in temp:
                 text += (i + ' ')
-                
+
             text = text[:-1]
 
             tokenized_text = word_tokenize(text)
             classified_text = st.tag(tokenized_text)
-            
+
             for i in classified_text:
                 if i[1] == 'LOCATION':
                     locations += i[0] + ","
 
             location_arr[i] = locations[:-1]
-        
+
         # Assigning the location_from_text to dataframe
         df['location_from_text'] = location_arr
 
@@ -215,3 +261,26 @@ class DataCollectionAndPreprocessing():
 
     def mediaDownload(self, df):
         pass
+
+
+class DataCollectionStreamListener(tw.StreamListener):
+
+    def __init__(self, search_term):
+        super().__init__()
+        self.search_term = search_term
+
+    def on_status(self, status):
+        if os.path.isdir("Data Gathered") == False:
+            os.mkdir("Data Gathered")
+
+            if os.path.isdir("Data Gathered/{}".format(self.search_term)) == False:
+                os.mkdir("Data Gathered/{}".format(self.search_term))
+
+        parent_dir = "Data Gathered/{}/".format(self.search_term)
+        with open(parent_dir+"{}.json".format(status.id), "w", encoding="utf-8") as f:
+            json.dump(status._json, f)
+
+
+# DataCollectionAndPreprocessing().invoke_scrapy()
+# DataCollectionAndPreprocessing().convert_folder_to_csv()
+DataCollectionAndPreprocessing().collectingDataUsingApi()

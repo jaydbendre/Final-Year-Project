@@ -23,7 +23,7 @@ class TweetScraperClass(CrawlSpider):
     name = 'TweetScraper'
     allowed_domains = ['twitter.com']
 
-    def __init__(self, query='', lang='', crawl_user=False, top_tweet=False):
+    def __init__(self, query='', lang='eng', crawl_user=False, top_tweet=False):
         # s.SAVE_TWEET_PATH = tweet_location
         # s.SAVE_USER_PATH = user_location
         self.query = query
