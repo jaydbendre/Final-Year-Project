@@ -1,1 +1,1 @@
-India,covid-19,Donald Trump,Volcano,Tsunami
+Country,Situation,Pandemic,Disease,Disaster,Dangerous,Volcanoes,Tsunami,Earthquake,Riot,Fire,Shooting,Hostage,Killed,Police,Emergency,Tornado,Cyclone

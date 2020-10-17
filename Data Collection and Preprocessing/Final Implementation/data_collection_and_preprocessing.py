@@ -12,6 +12,7 @@ import numpy as np
 import tweepy as tw
 from nltk.tag import StanfordNERTagger
 from nltk.tokenize import word_tokenize
+import threading
 
 
 class DataCollectionAndPreprocessing():
@@ -24,6 +25,7 @@ class DataCollectionAndPreprocessing():
     """
 
     def __init__(self):
+        self.api = ""
         pass
 
     """
@@ -45,16 +47,24 @@ class DataCollectionAndPreprocessing():
         auth.set_access_token(creds["access_token"],
                               creds["access_secret"])
 
-        api = tw.API(auth, wait_on_rate_limit=True)
+        self.api = tw.API(auth, wait_on_rate_limit=True)
 
-        for i in range(len(search_words)):
+        threads = []
+        for i in search_words:
+            # print(i)
+            t = threading.Thread(target=self.run_filter, args=(i,))
+            t.start()
+            threads.append(t)
 
-            streamListener = DataCollectionStreamListener(search_words[i], 30)
-            stream = tw.Stream(
-                auth=api.auth, listener=DataCollectionStreamListener(search_words[i], 30))
+    def run_filter(self, search_word):
+        # print(search_word)
+        stream = tw.Stream(
+            auth=self.api.auth, listener=DataCollectionStreamListener(search_word, 15*60))
 
-            stream.filter(track=[search_words[i]], is_async=True)
+        stream.filter(track=[search_word], is_async=True)
+        # time.sleep(5)
 
+    pass
     """
     Convert collected data from folders to an aggregated CSV
     """
@@ -138,6 +148,7 @@ class DataCollectionAndPreprocessing():
             )
         )
         df.drop_duplicates(subset="text", keep="last", inplace=True)
+        df["rt"] = df["text"].apply(self.identify_RT, 1)
 
     def locationFromText(self):
         df = pd.DataFrame(
@@ -202,6 +213,10 @@ class DataCollectionAndPreprocessing():
         df.apply(media_helper, 1)
 
     def identify_RT(self, item):
+        if item.startswith("RT"):
+            return True
+        else:
+            return False
         pass
 
 
@@ -231,9 +246,10 @@ class DataCollectionStreamListener(tw.StreamListener):
             return False
 
 
+DataCollectionAndPreprocessing().collectingDataUsingApi()
 # DataCollectionAndPreprocessing().invoke_scrapy()
 # DataCollectionAndPreprocessing().convert_folder_to_csv()
-DataCollectionAndPreprocessing().locationFromText()
+# DataCollectionAndPreprocessing().locationFromText()
 
 
 """
