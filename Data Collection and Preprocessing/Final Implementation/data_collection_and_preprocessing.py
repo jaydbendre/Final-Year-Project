@@ -139,9 +139,12 @@ class DataCollectionAndPreprocessing():
         )
         df.drop_duplicates(subset="text", keep="last", inplace=True)
 
-    def locationFromText(self, df):
+    def locationFromText(self):
+        df = pd.DataFrame(
+            pd.read_csv("CollectedData.csv")
+        )
         st = StanfordNERTagger('./NER Parser/stanford-ner-4.0.0/classifiers/english.all.3class.distsim.crf.ser.gz',
-                               './stanford-ner-4.0.0/stanford-ner.jar', encoding='utf-8')
+                               './NER Parser/stanford-ner-4.0.0/stanford-ner.jar', encoding='utf-8')
 
         # Assigning df['location_from_text'] with empty
         df['location_from_text'] = np.nan
@@ -172,7 +175,7 @@ class DataCollectionAndPreprocessing():
 
         # Assigning the location_from_text to dataframe
         df['location_from_text'] = location_arr
-
+        print(location_arr)
         return df
 
     def mediaDownload(self, df):
@@ -230,7 +233,7 @@ class DataCollectionStreamListener(tw.StreamListener):
 
 # DataCollectionAndPreprocessing().invoke_scrapy()
 # DataCollectionAndPreprocessing().convert_folder_to_csv()
-DataCollectionAndPreprocessing().clean_csv()
+DataCollectionAndPreprocessing().locationFromText()
 
 
 """
