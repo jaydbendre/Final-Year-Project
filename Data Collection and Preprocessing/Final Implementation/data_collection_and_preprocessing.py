@@ -128,7 +128,7 @@ class DataCollectionAndPreprocessing():
         location_arr = df[['location_from_text']].values.tolist()
 
         # Extracting Locations from Tweet Text
-        for i,j in enumerate(text_arr):
+        for num,text in enumerate(text_arr):
             locations = ''
             temp = [ i.capitalize() for i in text.split(' ')]
             text = ''
@@ -144,7 +144,7 @@ class DataCollectionAndPreprocessing():
                 if i[1] == 'LOCATION':
                     locations += i[0] + ","
 
-            location_arr[i] = locations[:-1]
+            location_arr[num] = locations[:-1]
         
         # Assigning the location_from_text to dataframe
         df['location_from_text'] = location_arr
