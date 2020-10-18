@@ -321,114 +321,117 @@ DataCollectionAndPreprocessing().collectingDataUsingApi()
 # DataCollectionAndPreprocessing().convert_folder_to_csv()
 # DataCollectionAndPreprocessing().locationFromText()
 
-
 """
-Get bearer token authorisation using Twitter API credentials
+Functions that may be Useful for future purposes
 """
-
-# def authorise_API(self):
-#     creds = dict()
-#     with open("TwitterCred.json", "r") as f:
-#         creds = json.load(f)
-
-#     key_secret = "{}:{}".format(
-#         creds["api_key"], creds["api_secret"]).encode("ascii")
-
-#     b64_encoded_key = base64.b64encode(key_secret)
-#     b64_encoded_key = b64_encoded_key.decode("ascii")
-
-#     base_url = "https://api.twitter.com/"
-#     auth_url = "{}oauth2/token".format(base_url)
-
-#     auth_headers = {
-#         "Authorization": "Basic {}".format(b64_encoded_key),
-#         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
-#     }
-
-#     auth_data = {
-#         "grant_type": "client_credentials"
-#     }
-
-#     auth_resp = requests.post(
-#         auth_url, headers=auth_headers, data=auth_data)
-
-#     return auth_resp
-
-"""
-Deploy Scrapy to store data into folders inside /Data Gathered/Data
-"""
-
-# def invoke_scrapy(self):
-#     search_terms = list()
-#     with open("cleanKeywords.txt", "r") as f:
-#         search_terms = [x.strip() for x in f.readline().split(",")]
-
-#     process = CrawlerProcess(get_project_settings())
-
-#     for s in search_terms:
-#         process.crawl(t.TweetScraper, query=s)
-#         # time.sleep(1)
-
-#     process.start()
 
 # """
-# Getting exact coordinates using Geopy and twitter api
+# Get bearer token authorisation using Twitter API credentials
 # """
 
-# def locationUsingAPI(self, df):
-#     auth_request = self.authorise_API()
+# # def authorise_API(self):
+# #     creds = dict()
+# #     with open("TwitterCred.json", "r") as f:
+# #         creds = json.load(f)
 
-#     if auth_request.status_code == 200:
-#         access_token = auth_request.json()["access_token"]
+# #     key_secret = "{}:{}".format(
+# #         creds["api_key"], creds["api_secret"]).encode("ascii")
 
-#         search_headers = {
-#             "Authorization": "Bearer {}".format(access_token)
-#         }
+# #     b64_encoded_key = base64.b64encode(key_secret)
+# #     b64_encoded_key = b64_encoded_key.decode("ascii")
 
-#         twitter_id = df["ID"]
+# #     base_url = "https://api.twitter.com/"
+# #     auth_url = "{}oauth2/token".format(base_url)
 
-#         search_url = "https://api.twitter.com/1.1/statuses/show.json"
-#         geolocator = Nominatim(user_agent="Soulage")
-#         for id in twitter_id:
-#             search_parameters = {
-#                 "id": str(id)
-#             }
+# #     auth_headers = {
+# #         "Authorization": "Basic {}".format(b64_encoded_key),
+# #         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+# #     }
 
-#             search_request = requests.get(
-#                 search_url,
-#                 headers=search_headers,
-#                 params=search_parameters
-#             )
+# #     auth_data = {
+# #         "grant_type": "client_credentials"
+# #     }
 
-#             if search_request.status_code == 200:
-#                 data = search_request.json()
+# #     auth_resp = requests.post(
+# #         auth_url, headers=auth_headers, data=auth_data)
 
-#                 key = str(id)
-#                 if data[key]["geo"] == None and data[key]["place"] == None and data[key]["coordinates"] == None:
-#                     user_location = data[key]["user"]["location"]
-#                     if user_location == "":
-#                         df[df["ID"] == id]["location"] = np.NaN
-#                     else:
-#                         df[df["ID"] == id]["location"] = user_location
-#                         coords = geolocator.geocode(
-#                             df[df["ID"] == id]["location"])
-#                         df[df["ID"] == id]["coordinates"] = (
-#                             coords.latitude, coords.longitude)
-#                 else:
-#                     if data[key]["place"] == None:
-#                         df[df["ID"] == id]["location"] = np.NaN
-#                     else:
-#                         df[df["ID"] ==
-#                             id]["location"] = data[key]["place"]["full_name"]
-#                         coords = geolocator.geocode(
-#                             df[df["ID"] == id]["location"])
-#                         df[df["ID"] == id]["coordinates"] = (
-#                             coords.latitude, coords.longitude)
-#             else:
-#                 for i in range(300):
-#                     print("Waiting for {} seconds".format(300-i))
-#                     time.sleep(1)
-#         return df
-#     else:
-#         print("Not Authorised")
-#         return np.Nan
+# #     return auth_resp
+
+# """
+# Deploy Scrapy to store data into folders inside /Data Gathered/Data
+# """
+
+# # def invoke_scrapy(self):
+# #     search_terms = list()
+# #     with open("cleanKeywords.txt", "r") as f:
+# #         search_terms = [x.strip() for x in f.readline().split(",")]
+
+# #     process = CrawlerProcess(get_project_settings())
+
+# #     for s in search_terms:
+# #         process.crawl(t.TweetScraper, query=s)
+# #         # time.sleep(1)
+
+# #     process.start()
+
+# # """
+# # Getting exact coordinates using Geopy and twitter api
+# # """
+
+# # def locationUsingAPI(self, df):
+# #     auth_request = self.authorise_API()
+
+# #     if auth_request.status_code == 200:
+# #         access_token = auth_request.json()["access_token"]
+
+# #         search_headers = {
+# #             "Authorization": "Bearer {}".format(access_token)
+# #         }
+
+# #         twitter_id = df["ID"]
+
+# #         search_url = "https://api.twitter.com/1.1/statuses/show.json"
+# #         geolocator = Nominatim(user_agent="Soulage")
+# #         for id in twitter_id:
+# #             search_parameters = {
+# #                 "id": str(id)
+# #             }
+
+# #             search_request = requests.get(
+# #                 search_url,
+# #                 headers=search_headers,
+# #                 params=search_parameters
+# #             )
+
+# #             if search_request.status_code == 200:
+# #                 data = search_request.json()
+
+# #                 key = str(id)
+# #                 if data[key]["geo"] == None and data[key]["place"] == None and data[key]["coordinates"] == None:
+# #                     user_location = data[key]["user"]["location"]
+# #                     if user_location == "":
+# #                         df[df["ID"] == id]["location"] = np.NaN
+# #                     else:
+# #                         df[df["ID"] == id]["location"] = user_location
+# #                         coords = geolocator.geocode(
+# #                             df[df["ID"] == id]["location"])
+# #                         df[df["ID"] == id]["coordinates"] = (
+# #                             coords.latitude, coords.longitude)
+# #                 else:
+# #                     if data[key]["place"] == None:
+# #                         df[df["ID"] == id]["location"] = np.NaN
+# #                     else:
+# #                         df[df["ID"] ==
+# #                             id]["location"] = data[key]["place"]["full_name"]
+# #                         coords = geolocator.geocode(
+# #                             df[df["ID"] == id]["location"])
+# #                         df[df["ID"] == id]["coordinates"] = (
+# #                             coords.latitude, coords.longitude)
+# #             else:
+# #                 for i in range(300):
+# #                     print("Waiting for {} seconds".format(300-i))
+# #                     time.sleep(1)
+# #         return df
+# #     else:
+# #         print("Not Authorised")
+# #         return np.Nan
