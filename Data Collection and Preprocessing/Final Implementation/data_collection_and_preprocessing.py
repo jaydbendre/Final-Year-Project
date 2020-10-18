@@ -98,6 +98,7 @@ class DataCollectionAndPreprocessing():
 
             # Accessing JSON files within the folder
             for file in files:
+                print(file)
                 json_string = open(file, "r", encoding="utf-8").read()
                 json_dict = json.loads(json_string)
 
@@ -105,6 +106,7 @@ class DataCollectionAndPreprocessing():
                 filter_dict = {
                     "id": json_dict["id"],
                     "text": json_dict["text"],
+                    "created_at": json_dict["created_at"],
                     "user_id": json_dict["user"]["id"],
                     "user_name": json_dict["user"]["name"],
                     "verfied": json_dict["user"]["verified"],
@@ -152,16 +154,14 @@ class DataCollectionAndPreprocessing():
         # remove carriage return in the dataframe
         df = df.replace({'\r': ' '}, regex=True)
 
-        # Loading previously collected data stored in the CSV
-        old_df = pd.DataFrame(
-            pd.read_csv("CollectedData.csv")
-        )
-
-        # Handling dumping of the data
-        if len(old_df) == 0:
-            df.to_csv("CollectedData.csv", index=False)
-        else:
+      # Handling dumping of the data
+        try:
+            old_df = pd.DataFrame(
+                pd.read_csv("CollectedData.csv")
+            )
             df.to_csv("CollectedData.csv", index=False, mode="a", header=False)
+        except FileNotFoundError:
+            df.to_csv("CollectedData.csv", index=False)
 
     """
     Cleaning the CSV and attribute engineering
@@ -179,6 +179,10 @@ class DataCollectionAndPreprocessing():
         df.drop_duplicates(subset="text", keep="last", inplace=True)
         # Checking if the tweet is a Retweet or not
         df["rt"] = df["text"].apply(self.identify_RT, 1)
+        # Finding out retweet user name
+        df["rt_username"] = df["text"].apply(self.identify_RT_username, 1)
+        with open("CleanedCollectedData.csv", "w", encoding="utf-8") as f:
+            df.to_csv(f, index=False)
 
     """
     Extracting location from the text in the tweet.
@@ -271,6 +275,13 @@ class DataCollectionAndPreprocessing():
             return False
         pass
 
+    def identify_RT_username(self, item):
+        if item.startswith("RT"):
+            username = item.split(":")[0][4:]
+            return username
+        else:
+            return np.NaN
+
 
 """
 Tweepy Stream Class to handle tweets extracted from the Stream
@@ -316,7 +327,8 @@ class DataCollectionStreamListener(tw.StreamListener):
             return False
 
 
-DataCollectionAndPreprocessing().collectingDataUsingApi()
+DataCollectionAndPreprocessing().convert_folder_to_csv()
+DataCollectionAndPreprocessing().clean_csv()
 # DataCollectionAndPreprocessing().invoke_scrapy()
 # DataCollectionAndPreprocessing().convert_folder_to_csv()
 # DataCollectionAndPreprocessing().locationFromText()

@@ -1,1 +1,1 @@
-Country,Situation,Pandemic,Disease,Disaster,Dangerous,Volcanoes,Tsunami,Earthquake,Riot,Fire,Shooting,Hostage,Killed,Police,Emergency,Tornado,Cyclone
+Country,public,nation,population,inhabitants,citizens,residents,environment,territory,Situation,Pandemic,Disease,Disaster,Dangerous,Volcanoes,Tsunami,Earthquake,Riot,Fire,Shooting,Hostage,Killed,Police,Emergency,Tornado,Cyclone
