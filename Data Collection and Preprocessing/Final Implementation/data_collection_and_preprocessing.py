@@ -181,6 +181,8 @@ class DataCollectionAndPreprocessing():
         df["rt"] = df["text"].apply(self.identify_RT, 1)
         # Finding out retweet user name
         df["rt_username"] = df["text"].apply(self.identify_RT_username, 1)
+
+        df["created_at"] = df["created_at"].apply(self.format_datetime, 1)
         with open("CleanedCollectedData.csv", "w", encoding="utf-8") as f:
             df.to_csv(f, index=False)
 
@@ -275,12 +277,25 @@ class DataCollectionAndPreprocessing():
             return False
         pass
 
+    """
+    Identifying users whose tweets were retweeted
+    """
+
     def identify_RT_username(self, item):
         if item.startswith("RT"):
             username = item.split(":")[0][4:]
             return username
         else:
             return np.NaN
+
+    """
+    Formatting datestring into datetime object
+    """
+
+    def format_datetime(self, item):
+        dt = datetime.datetime.strptime(item, "%a %b %d %H:%M:%S +%f %Y")
+        # print(dt)
+        return dt
 
 
 """
@@ -327,7 +342,7 @@ class DataCollectionStreamListener(tw.StreamListener):
             return False
 
 
-DataCollectionAndPreprocessing().convert_folder_to_csv()
+# DataCollectionAndPreprocessing().convert_folder_to_csv()
 DataCollectionAndPreprocessing().clean_csv()
 # DataCollectionAndPreprocessing().invoke_scrapy()
 # DataCollectionAndPreprocessing().convert_folder_to_csv()
