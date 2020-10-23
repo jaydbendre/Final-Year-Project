@@ -181,8 +181,11 @@ class DataCollectionAndPreprocessing():
         df["rt"] = df["text"].apply(self.identify_RT, 1)
         # Finding out retweet user name
         df["rt_username"] = df["text"].apply(self.identify_RT_username, 1)
-
+        # Formatting Date
         df["created_at"] = df["created_at"].apply(self.format_datetime, 1)
+        # Getting text from tweet if any
+        df = self.locationFromText(df)
+        # Dumping data into another csv
         with open("CleanedCollectedData.csv", "w", encoding="utf-8") as f:
             df.to_csv(f, index=False)
 
@@ -190,10 +193,8 @@ class DataCollectionAndPreprocessing():
     Extracting location from the text in the tweet.
     """
 
-    def locationFromText(self):
-        df = pd.DataFrame(
-            pd.read_csv("CollectedData.csv")
-        )
+    def locationFromText(self, df):
+
         st = StanfordNERTagger('./NER Parser/stanford-ner-4.0.0/classifiers/english.all.3class.distsim.crf.ser.gz',
                                './NER Parser/stanford-ner-4.0.0/stanford-ner.jar', encoding='utf-8')
 
