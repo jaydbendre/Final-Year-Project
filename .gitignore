@@ -6,6 +6,7 @@ Data/
 TweetScraper/Data/
 Data Collection and Preprocessing/Data Gathered/Data/
 Data Collection and Preprocessing/Final Implementation/Data Gathered/*
+Data Collection and Preprocessing/Final Implementation/media/*
 ### Django ###
 *.log
 *.pot
