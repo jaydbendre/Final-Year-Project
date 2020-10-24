@@ -43,11 +43,17 @@ class DataCollectionAndPreprocessing():
         # to load the search words from the clean keywords file
         search_words = []
         with open("cleanKeywords.txt", "r", encoding="utf-8") as f:
-            search_words = f.readline().split(",")
+            search_words = f.readlines()
 
+        search_words = [s.replace("\n", "") for s in search_words]
+        # print(search_words)
+        # search_word = ""
+        # for word in search_words:
+        #     word = word.replace("\n", "")
+        #     search_word += word + " "
         # loading twitter api credentials
         creds = dict()
-
+        print(search_words)
         with open("TwitterCred.json", "r") as f:
             creds = dict(json.load(f))
 
@@ -62,10 +68,13 @@ class DataCollectionAndPreprocessing():
 
         # creating threads to invoke multiple streams to extract keywords
         threads = []
-        for i in search_words:
-            t = threading.Thread(target=self.run_filter, args=(i,))
-            t.start()
-            threads.append(t)
+        # for i in search_words:
+        #     t = threading.Thread(target=self.run_filter, args=(i,))
+        #     t.start()
+        #     threads.append(t)
+        self.run_filter(search_words)
+        self.convert_folder_to_csv()
+        self.clean_csv()
 
     """
     Threading function to invoke multiple streams.
@@ -74,10 +83,10 @@ class DataCollectionAndPreprocessing():
     def run_filter(self, search_word):
         # Invoking Tweepy Stream object
         stream = tw.Stream(
-            auth=self.api.auth, listener=DataCollectionStreamListener(search_word, 15*60))
+            auth=self.api.auth, listener=DataCollectionStreamListener(10*30))
 
         # Filtering Stream with a specific search term
-        stream.filter(track=[search_word], is_async=True)
+        stream.filter(track=search_word)
 
     """
     Convert collected data from folders to an aggregated CSV
@@ -93,57 +102,103 @@ class DataCollectionAndPreprocessing():
 
         # Accessing files within the folders in the directory
         data = []
-        for folder in folders:
-            files = glob.glob(folder+"/*")
+        for file in folders:
+            # print(file)
+            json_string = open(file, "r", encoding="utf-8").read()
+            json_dict = json.loads(json_string)
 
-            # Accessing JSON files within the folder
-            for file in files:
-                print(file)
-                json_string = open(file, "r", encoding="utf-8").read()
-                json_dict = json.loads(json_string)
+            # Acessing and storing necessary attributes from the retrieved JSON
+            filter_dict = {
+                "id": json_dict["id"],
+                "text": json_dict["text"],
+                "created_at": json_dict["created_at"],
+                "user_id": json_dict["user"]["id"],
+                "user_name": json_dict["user"]["name"],
+                "verfied": json_dict["user"]["verified"],
+                "geo": json_dict["geo"],
+                "quoted": json_dict["quote_count"],
+                "favorite": json_dict["favorite_count"],
+                "retweet": json_dict["retweet_count"],
+                "favorite": json_dict["favorite_count"],
+            }
 
-                # Acessing and storing necessary attributes from the retrieved JSON
-                filter_dict = {
-                    "id": json_dict["id"],
-                    "text": json_dict["text"],
-                    "created_at": json_dict["created_at"],
-                    "user_id": json_dict["user"]["id"],
-                    "user_name": json_dict["user"]["name"],
-                    "verfied": json_dict["user"]["verified"],
-                    "geo": json_dict["geo"],
-                    "quoted": json_dict["quote_count"],
-                    "favorite": json_dict["favorite_count"],
-                    "retweet": json_dict["retweet_count"],
-                    "favorite": json_dict["favorite_count"],
-                    "search_term": folder[14:]
-                }
+            # Handling location in the tweet
+            if json_dict["place"] == None:
+                filter_dict["place"] = np.NaN
+                filter_dict["coordinates"] = np.NaN
 
-                # Handling location in the tweet
-                if json_dict["place"] == None:
-                    filter_dict["place"] = np.NaN
-                    filter_dict["coordinates"] = np.NaN
+            else:
+                filter_dict["place"] = json_dict["place"]["full_name"]
+                filter_dict["coordinates"] = (json_dict["place"]["bounding_box"]["coordinates"]
+                                              [0][0][0], json_dict["place"]["bounding_box"]["coordinates"][0][0][1])
 
-                else:
-                    filter_dict["place"] = json_dict["place"]["full_name"]
-                    filter_dict["coordinates"] = (json_dict["place"]["bounding_box"]["coordinates"]
-                                                  [0][0][0], json_dict["place"]["bounding_box"]["coordinates"][0][0][1])
-
-                # Checking if the tweet has media attached to it
-                if "extended_tweet" in json_dict.keys():
-                    media_data = json_dict["extended_tweet"]["entities"]
-                    if "media" in media_data.keys():
-                        filter_dict["media_type"] = json_dict["extended_tweet"]["entities"]["media"][0]["type"]
-                        filter_dict["media_url"] = json_dict["extended_tweet"]["entities"]["media"][0]["media_url_https"]
-                        filter_dict["media_id"] = json_dict["extended_tweet"]["entities"]["media"][0]["id"]
-                    else:
-                        filter_dict["media_type"] = np.NaN
-                        filter_dict["media_url"] = ""
-                        filter_dict["media_id"] = np.NaN
+            # Checking if the tweet has media attached to it
+            if "extended_tweet" in json_dict.keys():
+                media_data = json_dict["extended_tweet"]["entities"]
+                if "media" in media_data.keys():
+                    filter_dict["media_type"] = json_dict["extended_tweet"]["entities"]["media"][0]["type"]
+                    filter_dict["media_url"] = json_dict["extended_tweet"]["entities"]["media"][0]["media_url_https"]
+                    filter_dict["media_id"] = json_dict["extended_tweet"]["entities"]["media"][0]["id"]
                 else:
                     filter_dict["media_type"] = np.NaN
                     filter_dict["media_url"] = ""
                     filter_dict["media_id"] = np.NaN
-                data.append(filter_dict)
+            else:
+                filter_dict["media_type"] = np.NaN
+                filter_dict["media_url"] = ""
+                filter_dict["media_id"] = np.NaN
+            data.append(filter_dict)
+
+        # for folder in folders:
+        #     files = glob.glob(folder+"/*")
+
+        #     # Accessing JSON files within the folder
+        #     for file in files:
+        #         print(file)
+        #         json_string = open(file, "r", encoding="utf-8").read()
+        #         json_dict = json.loads(json_string)
+
+        #         # Acessing and storing necessary attributes from the retrieved JSON
+        #         filter_dict = {
+        #             "id": json_dict["id"],
+        #             "text": json_dict["text"],
+        #             "created_at": json_dict["created_at"],
+        #             "user_id": json_dict["user"]["id"],
+        #             "user_name": json_dict["user"]["name"],
+        #             "verfied": json_dict["user"]["verified"],
+        #             "geo": json_dict["geo"],
+        #             "quoted": json_dict["quote_count"],
+        #             "favorite": json_dict["favorite_count"],
+        #             "retweet": json_dict["retweet_count"],
+        #             "favorite": json_dict["favorite_count"],
+        #         }
+
+        #         # Handling location in the tweet
+        #         if json_dict["place"] == None:
+        #             filter_dict["place"] = np.NaN
+        #             filter_dict["coordinates"] = np.NaN
+
+        #         else:
+        #             filter_dict["place"] = json_dict["place"]["full_name"]
+        #             filter_dict["coordinates"] = (json_dict["place"]["bounding_box"]["coordinates"]
+        #                                           [0][0][0], json_dict["place"]["bounding_box"]["coordinates"][0][0][1])
+
+        #         # Checking if the tweet has media attached to it
+        #         if "extended_tweet" in json_dict.keys():
+        #             media_data = json_dict["extended_tweet"]["entities"]
+        #             if "media" in media_data.keys():
+        #                 filter_dict["media_type"] = json_dict["extended_tweet"]["entities"]["media"][0]["type"]
+        #                 filter_dict["media_url"] = json_dict["extended_tweet"]["entities"]["media"][0]["media_url_https"]
+        #                 filter_dict["media_id"] = json_dict["extended_tweet"]["entities"]["media"][0]["id"]
+        #             else:
+        #                 filter_dict["media_type"] = np.NaN
+        #                 filter_dict["media_url"] = ""
+        #                 filter_dict["media_id"] = np.NaN
+        #         else:
+        #             filter_dict["media_type"] = np.NaN
+        #             filter_dict["media_url"] = ""
+        #             filter_dict["media_id"] = np.NaN
+        #         data.append(filter_dict)
 
         # Convert the data list of JSONs into a data frame
         df = pd.DataFrame(data=data)
@@ -183,8 +238,9 @@ class DataCollectionAndPreprocessing():
         df["rt_username"] = df["text"].apply(self.identify_RT_username, 1)
         # Formatting Date
         df["created_at"] = df["created_at"].apply(self.format_datetime, 1)
+        self.mediaDownload(df)
         # Getting text from tweet if any
-        df = self.locationFromText(df)
+        # df = self.locationFromText(df)
         # Dumping data into another csv
         with open("CleanedCollectedData.csv", "w", encoding="utf-8") as f:
             df.to_csv(f, index=False)
@@ -246,22 +302,22 @@ class DataCollectionAndPreprocessing():
                 return
             else:
                 # Checking if the media storage folder exists
-                if os.path.isdir("Data Gathered/{}/media".format(df["search_term"])) == False:
+                if os.path.isdir("Data Gathered/media") == False:
                     os.makedirs(
-                        "Data Gathered/{}/media".format(df["search_term"]))
+                        "Data Gathered/media")
 
                 # Checking for 404 Error while retrieving media
                 try:
                     # Handling different media types and storing it
                     if df["media_type"] == "photo":
                         urllib.request.urlretrieve(
-                            df["media_url"], "Data Gathered/{}/media/{}.png".format(df["search_term"], df["id"]))
+                            df["media_url"], "Data Gathered/media/{}.png".format(df["id"]))
                     elif df["media_type"] == "video":
                         urllib.request.urlretrieve(
-                            df["media_url"], "Data Gathered/{}/media/{}.png".format(df["search_term"], df["id"]))
+                            df["media_url"], "Data Gathered/media/{}.png".format(df["id"]))
                     elif df["media_type"] == "animated_gif":
                         urllib.request.urlretrieve(
-                            df["media_url"], "Data Gathered/{}/media/{}.gif".format(df["search_term"], df["id"]))
+                            df["media_url"], "Data Gathered/media/{}.gif".format(df["id"]))
                 except urllib.error.HTTPError:
                     return
         # Applying the function to the dataframe
@@ -313,9 +369,8 @@ class DataCollectionStreamListener(tw.StreamListener):
     Constructor to initialise the self term and limit of stream listening
     """
 
-    def __init__(self, search_term, limit):
+    def __init__(self, limit):
         super().__init__()
-        self.search_term = search_term
         self.limit = limit
         self.start_time = time.time()
 
@@ -329,11 +384,12 @@ class DataCollectionStreamListener(tw.StreamListener):
             # Handling directory making if it doesnt exist
             if os.path.isdir("Data Gathered") == False:
                 os.mkdir("Data Gathered")
+            print(status.id)
+            # if os.path.isdir("Data Gathered/{}".format(self.search_term)) == False:
+            #     os.mkdir("Data Gathered/{}".format(self.search_term))
 
-            if os.path.isdir("Data Gathered/{}".format(self.search_term)) == False:
-                os.mkdir("Data Gathered/{}".format(self.search_term))
-
-            parent_dir = "Data Gathered/{}/".format(self.search_term)
+            # parent_dir = "Data Gathered/{}/".format(self.search_term)
+            parent_dir = "Data Gathered/"
             # Dumping data into a JSON
             with open(parent_dir+"{}.json".format(status.id), "w", encoding="utf-8") as f:
                 json.dump(status._json, f)
@@ -344,10 +400,15 @@ class DataCollectionStreamListener(tw.StreamListener):
 
 
 # DataCollectionAndPreprocessing().convert_folder_to_csv()
-DataCollectionAndPreprocessing().clean_csv()
+# DataCollectionAndPreprocessing().clean_csv()
 # DataCollectionAndPreprocessing().invoke_scrapy()
 # DataCollectionAndPreprocessing().convert_folder_to_csv()
 # DataCollectionAndPreprocessing().locationFromText()
+# DataCollectionAndPreprocessing().clean_csv()
+
+data_collection_ob = DataCollectionAndPreprocessing()
+
+data_collection_ob.collectingDataUsingApi()
 
 """
 Functions that may be Useful for future purposes
