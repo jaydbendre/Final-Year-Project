@@ -81,7 +81,7 @@ class DataCollectionAndPreprocessing():
     def run_filter(self, search_word):
         # Invoking Tweepy Stream object
         stream = tw.Stream(
-            auth=self.api.auth, listener=DataCollectionStreamListener(120))
+            auth=self.api.auth, listener=DataCollectionStreamListener(15*60))
 
         # Filtering Stream with a specific search term
         stream.filter(track=search_word)
@@ -90,7 +90,7 @@ class DataCollectionAndPreprocessing():
     Convert collected data from folders to an aggregated CSV
     """
 
-    def convert_folder_to_csv(self):
+    def convert_folder_to_csv(self, collection_start_time, collection_end_time):
 
         # Directory where data is dumped
         parent_dir = "Data Gathered/"
@@ -102,50 +102,56 @@ class DataCollectionAndPreprocessing():
         data = []
         for file in folders:
             # print(file)
-            json_string = open(file, "r", encoding="utf-8").read()
-            json_dict = json.loads(json_string)
+            creation_time = os.path.getctime(file)
+            creation_time = datetime.datetime.strptime(datetime.datetime.fromtimestamp(
+                creation_time).strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")
+            if creation_time >= collection_start_time and creation_time <= collection_end_time:
+                json_string = open(file, "r", encoding="utf-8").read()
+                json_dict = json.loads(json_string)
 
-            # Acessing and storing necessary attributes from the retrieved JSON
-            filter_dict = {
-                "id": json_dict["id"],
-                "text": json_dict["text"],
-                "created_at": json_dict["created_at"],
-                "user_id": json_dict["user"]["id"],
-                "user_name": json_dict["user"]["name"],
-                "verfied": json_dict["user"]["verified"],
-                "geo": json_dict["geo"],
-                "quoted": json_dict["quote_count"],
-                "favorite": json_dict["favorite_count"],
-                "retweet": json_dict["retweet_count"],
-                "favorite": json_dict["favorite_count"],
-            }
+                # Acessing and storing necessary attributes from the retrieved JSON
+                filter_dict = {
+                    "id": json_dict["id"],
+                    "text": json_dict["text"],
+                    "created_at": json_dict["created_at"],
+                    "user_id": json_dict["user"]["id"],
+                    "user_name": json_dict["user"]["name"],
+                    "verfied": json_dict["user"]["verified"],
+                    "geo": json_dict["geo"],
+                    "quoted": json_dict["quote_count"],
+                    "favorite": json_dict["favorite_count"],
+                    "retweet": json_dict["retweet_count"],
+                    "favorite": json_dict["favorite_count"],
+                }
 
-            # Handling location in the tweet
-            if json_dict["place"] == None:
-                filter_dict["place"] = np.NaN
-                filter_dict["coordinates"] = np.NaN
+                # Handling location in the tweet
+                if json_dict["place"] == None:
+                    filter_dict["place"] = np.NaN
+                    filter_dict["coordinates"] = np.NaN
 
-            else:
-                filter_dict["place"] = json_dict["place"]["full_name"]
-                filter_dict["coordinates"] = (json_dict["place"]["bounding_box"]["coordinates"]
-                                              [0][0][0], json_dict["place"]["bounding_box"]["coordinates"][0][0][1])
+                else:
+                    filter_dict["place"] = json_dict["place"]["full_name"]
+                    filter_dict["coordinates"] = (json_dict["place"]["bounding_box"]["coordinates"]
+                                                  [0][0][0], json_dict["place"]["bounding_box"]["coordinates"][0][0][1])
 
-            # Checking if the tweet has media attached to it
-            if "extended_tweet" in json_dict.keys():
-                media_data = json_dict["extended_tweet"]["entities"]
-                if "media" in media_data.keys():
-                    filter_dict["media_type"] = json_dict["extended_tweet"]["entities"]["media"][0]["type"]
-                    filter_dict["media_url"] = json_dict["extended_tweet"]["entities"]["media"][0]["media_url_https"]
-                    filter_dict["media_id"] = json_dict["extended_tweet"]["entities"]["media"][0]["id"]
+                # Checking if the tweet has media attached to it
+                if "extended_tweet" in json_dict.keys():
+                    media_data = json_dict["extended_tweet"]["entities"]
+                    if "media" in media_data.keys():
+                        filter_dict["media_type"] = json_dict["extended_tweet"]["entities"]["media"][0]["type"]
+                        filter_dict["media_url"] = json_dict["extended_tweet"]["entities"]["media"][0]["media_url_https"]
+                        filter_dict["media_id"] = json_dict["extended_tweet"]["entities"]["media"][0]["id"]
+                    else:
+                        filter_dict["media_type"] = np.NaN
+                        filter_dict["media_url"] = ""
+                        filter_dict["media_id"] = np.NaN
                 else:
                     filter_dict["media_type"] = np.NaN
                     filter_dict["media_url"] = ""
                     filter_dict["media_id"] = np.NaN
+                data.append(filter_dict)
             else:
-                filter_dict["media_type"] = np.NaN
-                filter_dict["media_url"] = ""
-                filter_dict["media_id"] = np.NaN
-            data.append(filter_dict)
+                continue
 
         # Convert the data list of JSONs into a data frame
         df = pd.DataFrame(data=data)
