@@ -84,7 +84,7 @@ class DataCollectionAndPreprocessing():
             auth=self.api.auth, listener=DataCollectionStreamListener(15*60))
 
         # Filtering Stream with a specific search term
-        stream.filter(track=search_word)
+        stream.filter(track=search_word, is_async=True)
 
     """
     Convert collected data from folders to an aggregated CSV
@@ -137,6 +137,7 @@ class DataCollectionAndPreprocessing():
                 # Checking if the tweet has media attached to it
                 if "extended_tweet" in json_dict.keys():
                     media_data = json_dict["extended_tweet"]["entities"]
+                    filter_dict["text"] = json_dict["extended_tweet"]["full_text"]
                     if "media" in media_data.keys():
                         filter_dict["media_type"] = json_dict["extended_tweet"]["entities"]["media"][0]["type"]
                         filter_dict["media_url"] = json_dict["extended_tweet"]["entities"]["media"][0]["media_url_https"]
