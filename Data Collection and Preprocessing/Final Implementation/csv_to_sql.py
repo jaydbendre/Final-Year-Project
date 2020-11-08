@@ -25,4 +25,4 @@ class CSV_SQL_Pipeline():
         con.close()
 
 
-CSV_SQL_Pipeline().dumper()
+# CSV_SQL_Pipeline().dumper()
