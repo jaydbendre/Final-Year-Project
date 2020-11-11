@@ -11,21 +11,7 @@ import datetime
 # Create your models here.
 
 
-class User(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    twitter_user_name = models.CharField(max_length=50, unique=True)
-    email = models.EmailField
-    password = models.CharField(max_length=50)
-    location = models.CharField(max_length=50)
-    date_of_birth = models.DateField(default=None)
-    otp = models.CharField(max_length=10)
-    otp_time_stamp = models.DateTimeField(default=datetime.datetime.now())
-    is_verified = models.BooleanField(default=False)
-    role = models.IntegerField(default=1)
-
-
-class Data(models.Model):
+class Data_Collection(models.Model):
     id = models.BigIntegerField(primary_key=True)
     text = models.TextField(blank=True, null=True)
     created_at = models.TextField(blank=True, null=True)
@@ -43,10 +29,22 @@ class Data(models.Model):
     media_id = models.FloatField(blank=True, null=True)
     rt = models.IntegerField(blank=True, null=True)
     rt_username = models.TextField(blank=True, null=True)
+    stored_at = models.DateTimeField(default=datetime.datetime.now())
 
-    class Meta:
-        managed = False
-        db_table = 'data'
+
+class User(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    twitter_user_name = models.CharField(max_length=50, unique=True)
+    email = models.EmailField
+    password = models.CharField(max_length=50)
+    location = models.CharField(max_length=50)
+    date_of_birth = models.DateField(default=None)
+    otp = models.CharField(max_length=10)
+    otp_time_stamp = models.DateTimeField(default=datetime.datetime.now())
+    is_verified = models.BooleanField(default=False)
+    verified_at = models.DateTimeField(default=datetime.datetime.now())
+    role = models.IntegerField(default=1)
 
 
 class Organisations(models.Model):
@@ -69,12 +67,12 @@ class Topics(models.Model):
 
 
 class Topic_Tweet_Map(models.Model):
-    tweet_id = models.ForeignKey(Data, on_delete=models.CASCADE)
+    tweet_id = models.ForeignKey(Data_Collection, on_delete=models.CASCADE)
     topic_id = models.ForeignKey(Topics, on_delete=models.CASCADE)
 
 
 class Tweet_Sentiment(models.Model):
-    tweet_id = models.ForeignKey(Data, on_delete=models.CASCADE)
+    tweet_id = models.ForeignKey(Data_Collection, on_delete=models.CASCADE)
     sentiment = models.CharField(max_length=150)
 
 
@@ -91,3 +89,14 @@ class Request(models.Model):
 class Donations (models.Model):
     request_id = models.ForeignKey(Request, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    donate = models.TextField(default=None)
+    donated_at = models.DateTimeField(default=datetime.datetime.now())
+    is_complete = models.BooleanField(default=False)
+
+
+class POC_requests(models.Model):
+    uid = models.ForeignKey(User, on_delete=models.CASCADE)
+    organisation_details = models.TextField(default=None)
+    is_approved = models.BooleanField(default=False)
+    decision_passed_at = models.DateTimeField(default=datetime.datetime.now())
+    email = models.EmailField(unique=True)

@@ -1,5 +1,6 @@
-from django.apps import AppConfig
 import tensorflow as tf
+from django.apps import AppConfig
+tf.get_logger().setLevel('INFO')
 
 
 class SoulageConfig(AppConfig):
