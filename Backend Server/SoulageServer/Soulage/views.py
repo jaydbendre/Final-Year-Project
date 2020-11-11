@@ -6,7 +6,7 @@ from .sentiment_model import SentimentAnalyzer
 from .apps import SoulageConfig
 import numpy as np
 import pandas as pd
-from .DataCollection.data_collection_and_preprocessing_helper import DataCollectionAndPreprocessing
+from .models import Data_Collection
 # from .models import Data
 # Create your views here.
 
@@ -16,9 +16,10 @@ def index(request):
     return Response({"hello": "hi"})
 
 
-@api_view(["POST"])
+@api_view(["GET"])
 def get_sentiment_API(request):
-    text = request.data["text"]
+    record = Data_Collection.objects.latest("created_at")
+    text = record.text
     sa_obj = SentimentAnalyzer(text)
     text = sa_obj.text
     predictions = SoulageConfig.predictor.predict(text)
@@ -26,4 +27,4 @@ def get_sentiment_API(request):
     result = pd.DataFrame([sa_obj.sent_to_id.keys(), sent]).T
     result.columns = ["sentiment", "percentage"]
     result = result[result.percentage != 0]
-    return Response(result)
+    return Response({"result": result, "data": record.text})

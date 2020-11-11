@@ -5,6 +5,9 @@
 Data/
 TweetScraper/Data/
 Data Collection and Preprocessing/Data Gathered/Data/
+Backend Server/SoulageServer/Soulage/DataCollection/Data Gathered/*
+Backend Server/SoulageServer/Soulage/DataCollection/Media/*
+Backend Server/SoulageServer/Soulage/DataCollection/*.csv
 Data Collection and Preprocessing/Final Implementation/Data Gathered/*
 Data Collection and Preprocessing/Final Implementation/media/*
 ### Django ###

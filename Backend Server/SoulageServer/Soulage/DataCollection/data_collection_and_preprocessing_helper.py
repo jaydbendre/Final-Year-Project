@@ -81,7 +81,7 @@ class DataCollectionAndPreprocessing():
     def run_filter(self, search_word):
         # Invoking Tweepy Stream object
         stream = tw.Stream(
-            auth=self.api.auth, listener=DataCollectionStreamListener(15*60))
+            auth=self.api.auth, listener=DataCollectionStreamListener(2*60))
 
         # Filtering Stream with a specific search term
         stream.filter(track=search_word, is_async=True)
@@ -177,18 +177,22 @@ class DataCollectionAndPreprocessing():
             df.to_csv("CollectedData.csv", index=False)
         except AttributeError:
             df.to_csv("CollectedData.csv", index=False)
+        except pd.errors.EmptyDataError:
+            df.to_csv("CollectedData.csv", index=False)
     """
     Cleaning the CSV and attribute engineering
     """
 
     def clean_csv(self):
         # Loading data from the csv
-        df = pd.DataFrame(
-            pd.read_csv(
-                "CollectedData.csv"
+        try:
+            df = pd.DataFrame(
+                pd.read_csv(
+                    "CollectedData.csv"
+                )
             )
-        )
-
+        except pd.errors.EmptyDataError:
+            df.to_csv("CollectedData.csv", index=False)
         # Removing duplicate text entries
         df.drop_duplicates(subset="text", keep="last", inplace=True)
         # Checking if the tweet is a Retweet or not
@@ -221,7 +225,7 @@ class DataCollectionAndPreprocessing():
         text_arr = df[['text']].values.tolist()
 
         location_arr = df[['location_from_text']].values.tolist()
-        
+
         # Extracting Locations from Tweet Text
         for num, text in enumerate(text_arr):
             locations = ''
@@ -241,7 +245,7 @@ class DataCollectionAndPreprocessing():
                     locations += i[0] + ","
 
             location_arr[num] = locations[:-1]
-            
+
         # Assigning the location_from_text to dataframe
         df['location_from_text'] = location_arr
         # print(location_arr)

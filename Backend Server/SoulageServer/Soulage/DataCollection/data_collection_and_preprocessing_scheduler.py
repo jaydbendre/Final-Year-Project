@@ -13,7 +13,7 @@ while True:
     i += 1
     collection_time = dt.datetime.now()
     print("Collection round {} started at : {}".format(i, dt.datetime.now()))
-    time.sleep(15*60)
+    time.sleep(2*60)
     end_time = dt.datetime.now()
 
     print("Collection round {} finished at {}".format(i, dt.datetime.now()))
@@ -27,5 +27,6 @@ while True:
 
     print("CSV cleaned after round {}".format(i))
     old_file_count = len(files)
-    if i % 4 == 0:
-        cs_ob.dumper()
+
+    cs_ob.dumper()
+    print("Dump records in SQL")
