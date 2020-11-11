@@ -70,7 +70,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'SoulageServer.wsgi.application'
-
+HDF5_DISABLE_VERSION_CHECK = "1"
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
