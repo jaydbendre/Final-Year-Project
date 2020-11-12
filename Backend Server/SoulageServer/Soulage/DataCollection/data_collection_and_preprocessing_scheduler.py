@@ -13,7 +13,7 @@ while True:
     i += 1
     collection_time = dt.datetime.now()
     print("Collection round {} started at : {}".format(i, dt.datetime.now()))
-    time.sleep(2*60)
+    time.sleep(1*30)
     end_time = dt.datetime.now()
 
     print("Collection round {} finished at {}".format(i, dt.datetime.now()))

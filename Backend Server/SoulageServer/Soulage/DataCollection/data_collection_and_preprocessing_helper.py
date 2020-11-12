@@ -84,7 +84,7 @@ class DataCollectionAndPreprocessing():
             auth=self.api.auth, listener=DataCollectionStreamListener(2*60))
 
         # Filtering Stream with a specific search term
-        stream.filter(track=search_word, is_async=True)
+        stream.filter(track=search_word, is_async=False)
 
     """
     Convert collected data from folders to an aggregated CSV
@@ -112,7 +112,6 @@ class DataCollectionAndPreprocessing():
                 # Acessing and storing necessary attributes from the retrieved JSON
                 filter_dict = {
                     "id": json_dict["id"],
-                    "text": json_dict["text"],
                     "created_at": json_dict["created_at"],
                     "user_id": json_dict["user"]["id"],
                     "user_name": json_dict["user"]["name"],
@@ -146,10 +145,12 @@ class DataCollectionAndPreprocessing():
                         filter_dict["media_type"] = np.NaN
                         filter_dict["media_url"] = ""
                         filter_dict["media_id"] = np.NaN
+                        filter_dict["text"] = json_dict["text"]
                 else:
                     filter_dict["media_type"] = np.NaN
                     filter_dict["media_url"] = ""
                     filter_dict["media_id"] = np.NaN
+                    filter_dict["text"] = json_dict["text"]
                 data.append(filter_dict)
             else:
                 continue
@@ -185,6 +186,7 @@ class DataCollectionAndPreprocessing():
 
     def clean_csv(self):
         # Loading data from the csv
+        df = pd.DataFrame
         try:
             df = pd.DataFrame(
                 pd.read_csv(
@@ -192,7 +194,7 @@ class DataCollectionAndPreprocessing():
                 )
             )
         except pd.errors.EmptyDataError:
-            df.to_csv("CollectedData.csv", index=False)
+            print("Error")
         # Removing duplicate text entries
         df.drop_duplicates(subset="text", keep="last", inplace=True)
         # Checking if the tweet is a Retweet or not
@@ -362,6 +364,9 @@ class DataCollectionStreamListener(tw.StreamListener):
             return True
         else:
             return False
+
+    def on_error(self, status_code):
+        print(status_code)
 
 
 """
