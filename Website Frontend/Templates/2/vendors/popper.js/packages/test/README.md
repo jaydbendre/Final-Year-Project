@@ -1,6 +1,3 @@
-# Popper.js scripts
-
-This package is a list of scripts used by Popper.js and Tooltip.js to
-test the packages.
-
-It's not intended to be used outside of Popper.js repository.
+version https://git-lfs.github.com/spec/v1
+oid sha256:ac989603343a05e32e2eb5ac5474c35faf28ef98fb4781cc3285e9a9e2cfc3be
+size 179
