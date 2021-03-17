@@ -1,19 +1,3 @@
-import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-
-import LoginScreen from './screens/LoginScreen';
-
-const IndexScreen = () => {
-    return (
-        // <View style={{ flex: 1 }}>
-        //     <Text style={{ alignContent: 'center' }}>
-        //         Home Screen
-        //     </Text>
-        // </View>
-        <LoginScreen />
-    )
-}
-
-const styles = StyleSheet.create({});
-
-export default IndexScreen;
+version https://git-lfs.github.com/spec/v1
+oid sha256:a7f487ec1034aa5ce1bb871b85f5ac39b11558a18034450f1e5664d45e7046fc
+size 1046

@@ -8,9 +8,13 @@ target 'Soulage' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   pod 'react-native-twitter-signin', :path => '../node_modules/react-native-twitter-signin'
 
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
+  pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
 
   target 'SoulageTests' do
     inherit! :complete
