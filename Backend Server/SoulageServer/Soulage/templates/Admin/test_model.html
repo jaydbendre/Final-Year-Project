@@ -1,0 +1,104 @@
+{% extends "Admin/admin_dashboard_layout.html" %}
+{% load static %}
+{% block admin_content %}
+<script src="{% static 'assets/vendors/jquery/dist/jquery.min.js' %}" type="text/javascript"></script>
+<script>
+    $(function () {
+
+        $("#sentiment_analyzer").click(function () {
+            $("#morris_donut_chart_1").html("");
+            var text = $("#sentiment").val();
+            $.post(
+                "http://127.0.0.1:8000/model/sentiment_analyze",
+                {
+                    text: text
+                },
+                function (data, status) {
+                    console.log(data)
+                    Morris.Donut({
+                        element: 'morris_donut_chart_1',
+                        data: data,
+                        formatter: function (y) { return y + "%" }
+                    });
+                }
+            )
+        })
+        $("#image_analyze").click(function () {
+            var fd = new FormData();
+            var files = $("#image_to_analyze").prop("files")[0]
+            $("#morris_donut_chart_2").html("");
+            fd.append("file", files)
+            console.log(fd)
+            $.ajax({
+                url: "http://127.0.0.1:8000/model/image_analyze", // point to server-side PHP script 
+                dataType: 'JSON',  // what to expect back from the PHP script, if anything
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: fd,
+                type: 'post',
+                success: function (data) {
+                    console.log(data)
+                    $("#load_img").html(
+                        '<img src="../uploaded_files/' + data['file_name]'] + '" alt="">'
+                    )
+                    Morris.Donut({
+                        element: 'morris_donut_chart_2',
+                        data: data["data"],
+                        formatter: function (y) { return y + "%" }
+                    }); // display response from the PHP script, if any
+                }
+            });
+        })
+
+    });
+
+</script>
+<div class="row align-text-center m-4">
+    <div class="col-md-6">
+        <div class="ibox">
+            <div class="ibox-head">
+                <div class="ibox-title"> Sentiment Analyzer</div>
+            </div>
+            <div class="ibox-body">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="input group" name="sentiment"
+                            id="sentiment">
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary" type="button" id="sentiment_analyzer">Analyze</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="morris_donut_chart_1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="ibox">
+            <div class="ibox-head">
+                <div class="ibox-title">Image Classification</div>
+            </div>
+            <div class="ibox-body">
+                <form action="" method="post" enctype="mutlipart/form-data" id="myForm"></form>
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" type="file" placeholder="input group" name="image_to_analyze"
+                            id="image_to_analyze">
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary" type="button" id="image_analyze">Analyze</button>
+                        </div>
+
+                    </div>
+                </div>
+                </form>
+                <div id="load_img"></div>
+
+                <div id="morris_donut_chart_2"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

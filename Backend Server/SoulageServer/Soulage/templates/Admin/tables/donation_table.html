@@ -1,0 +1,37 @@
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th width="50px"></th>
+                <th>id</th>
+                <th>Description</th>
+                <th>Organisation ID</th>
+                <th>Topic ID</th>
+                <th>Twitter Username</th>
+                <th>Initiated At</th>
+                <th>Decision Passed At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in data.donations %}
+            <tr>
+                <td>
+                    <label class="ui-checkbox">
+                        <input type="checkbox">
+                        <span class="input-span"></span>
+                    </label>
+                </td>
+                {% for element in user.values %}
+                <td> {{element}}</td>
+                {% endfor %}
+                <td>
+                    <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" data-original-title="Edit"><i
+                            class="fa fa-pencil font-14"></i></button>
+                    <button class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="Delete"><i
+                            class="fa fa-trash font-14"></i></button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
