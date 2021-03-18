@@ -30,15 +30,25 @@ urlpatterns = [
     # Get specific donations
     path("get_donations/<str:topic_name>",
          views.get_request_pool, name="get_donations"),
-         
-#     path("get_dashboard_data", views.get_dashboard_data, name="get_dashboard_data"),
+
+    #     path("get_dashboard_data", views.get_dashboard_data, name="get_dashboard_data"),
 
     # Websites
+    # Admin
     path("admin_login", views.admin_login, name="admin_login"),
     path("render_admin_dashboard", views.render_admin_dashboard,
          name="render_admin_dashboard"),
     path("admin_tables", views.admin_tables, name="admin_tables"),
     path("render_admin_login", views.render_admin_login, name="render_admin_login"),
     path("get_sentiment", views.get_dashboard_data, name="dashboard_data"),
-    path("admin_test_model", views.model_tester, name="admin_test_model"),
+    #     path("admin_test_model", views.model_tester, name="admin_test_model"),
+
+    # VE
+    path("render_ve_dashboard", views.render_ve_dashboard,
+         name="render_ve_dashboard"),
+    path("render_model_evaluator", views.model_tester, name="ve_model_tester"),
+    path("request_donation_request", views.ve_request_donation,
+         name="ve_request_donation_decision"),
+    path("organization_poc_request", views.ve_organization_request,
+         name="ve_org_request_decision")
 ]

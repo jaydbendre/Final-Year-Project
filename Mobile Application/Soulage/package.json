@@ -19,6 +19,7 @@
     "react-native": "0.63.3",
     "react-native-animated-loader": "0.0.8",
     "react-native-chart-kit": "^6.6.1",
+    "react-native-cli": "^2.0.1",
     "react-native-collapsible": "^1.5.3",
     "react-native-dialog-input": "^1.0.8",
     "react-native-elements": "^3.0.0-alpha.1",

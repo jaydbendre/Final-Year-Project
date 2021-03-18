@@ -1,3 +1,8 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:dbb393c728713229d944626dfc5719d5d4ccbe0392ac2dacd04a63c30189062d
-size 232
+# import tensorflow as tf
+from django.apps import AppConfig
+# tf.get_logger().setLevel('INFO')
+
+
+class SoulageConfig(AppConfig):
+    name = 'Soulage'
+    # predictor = tf.keras.models.load_model("Soulage/Emotional_analysis_v1")

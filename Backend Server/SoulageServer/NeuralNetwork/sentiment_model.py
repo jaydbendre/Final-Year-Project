@@ -1,3 +1,108 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:bee00f597bd8bead6d8194a891a45ea0da08bd06d0ce64d0ddf951aa2f6d5707
-size 4288
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from keras.layers.recurrent import LSTM, GRU, SimpleRNN
+import pickle
+from tqdm import tqdm
+from tokenizers import Tokenizer, models, pre_tokenizers, decoders, processors
+from tqdm.notebook import tqdm
+from transformers import TFAutoModel, AutoTokenizer
+import transformers
+from tensorflow.keras.callbacks import ModelCheckpoint
+from tensorflow.keras.models import Model
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.layers import Dense, Input
+import plotly.express as px
+import plotly.graph_objects as go
+from keras.callbacks import EarlyStopping
+from keras.preprocessing import sequence, text
+from keras.layers import GlobalMaxPooling1D, Conv1D, MaxPooling1D, Flatten, Bidirectional, SpatialDropout1D
+from sklearn import preprocessing, decomposition, model_selection, metrics, pipeline
+from keras.utils import np_utils
+from keras.layers.normalization import BatchNormalization
+from keras.layers.embeddings import Embedding
+from keras.layers.core import Dense, Activation, Dropout
+from keras.models import Sequential
+import preprocessor as p
+import numpy as np
+import pandas as pd
+import emoji
+import keras
+from sklearn.model_selection import train_test_split
+import logging
+import tensorflow as tf
+import os
+tf.autograph.set_verbosity(0)
+tf.get_logger().setLevel('ERROR')
+
+
+class SentimentAnalyzer():
+    sent_to_id = {"empty": 0, "sadness": 1, "enthusiasm": 2, "neutral": 3, "worry": 4,
+                  "surprise": 5, "love": 6, "fun": 7, "hate": 8, "happiness": 9, "boredom": 10, "relief": 11, "anger": 12}
+
+    os.chdir("NeuralNetwork/")
+    misspell_data = pd.read_csv(
+        "Extras/aspell.txt", sep=":", names=["correction", "misspell"])
+    misspell_data.misspell = misspell_data.misspell.str.strip()
+    misspell_data.misspell = misspell_data.misspell.str.split(" ")
+    misspell_data = misspell_data.explode("misspell").reset_index(drop=True)
+    misspell_data.drop_duplicates("misspell", inplace=True)
+    miss_corr = dict(zip(misspell_data.misspell, misspell_data.correction))
+
+    contractions = pd.read_csv("Extras/contractions.csv")
+    cont_dic = dict(zip(contractions.Contraction, contractions.Meaning))
+
+    p.set_options(p.OPT.MENTION, p.OPT.URL)
+    max_len = 160
+    text = ""
+
+    def __init__(self, text):
+        with open("Extras/tokenizer.pickle", "rb") as f:
+            token = pickle.load(f)
+        self.text = self.clean_text(text)
+        self.text = token.texts_to_sequences([self.text])
+        self.text = sequence.pad_sequences(
+            self.text, maxlen=self.max_len, dtype='int32')
+
+    def misspelled_correction(self, val):
+        for x in val.split():
+            if x in self.miss_corr.keys():
+                val = val.replace(x, self.miss_corr[x])
+        return val
+
+    def cont_to_meaning(self, val):
+        for x in val.split():
+            if x in self.cont_dic.keys():
+                val = val.replace(x, self.cont_dic[x])
+        return val
+
+    def punctuation(self, val):
+        punctuations = '''()-[]{};:'"\,<>./@#$%^&_~'''
+    # val = str(val)
+        for x in val.lower():
+            if x in punctuations:
+                val = val.replace(x, " ")
+        return val
+
+    def clean_text(self, val):
+        val = self.misspelled_correction(val)
+        val = self.cont_to_meaning(val)
+        val = p.clean(val)
+        val = ' '.join(self.punctuation(emoji.demojize(val)).split())
+
+        return val
+
+    # @tf.function
+    # def get_sentiment(self,text):
+    #     text = self.clean_text(text)
+    #     # print(text)
+    #     model = tf.keras.models.load_model("Soulage/Emotional_analysis_v1")
+    #     #tokenize
+    #     with open("Soulage/Extras/tokenizer.pickle","rb") as f:
+    #         token = pickle.load(f)
+    #     twt = token.texts_to_sequences([text])
+    #     twt = sequence.pad_sequences(twt, maxlen=self.max_len, dtype='int32')
+    #     sentiment = model.predict(twt,batch_size=1,verbose = 2)
+    #     sent = np.round(np.dot(sentiment,100).tolist(),0)[0]
+    #     result = pd.DataFrame([self.sent_to_id.keys(),sent]).T
+    #     result.columns = ["sentiment","percentage"]
+    #     result=result[result.percentage !=0]
+    #     return result

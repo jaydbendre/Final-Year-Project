@@ -49,6 +49,10 @@ def index(request):
     pass
 
 
+def render_admin_login(request):
+    return render(request, "login.html", {"Error": ""})
+
+
 def admin_login(request):
     username = request.POST["username"]
     password = request.POST["password"]
@@ -63,33 +67,44 @@ def admin_login(request):
             request.session["role"] = "Administrator"
             request.session["name"] = user_data.first_name + \
                 " " + user_data.last_name
-            data["donation_amount_wk_1"] = [
-                0, 0, 10000, 2000, 8000, 5000, 7500]
-            data["donation_amount_wk_2"] = [
-                6000, 1000, 5000, 7000, 2700, 8500, 9600]
+            # data["donation_amount_wk_1"] = [
+            #     0, 0, 10000, 2000, 8000, 5000, 7500]
+            # data["donation_amount_wk_2"] = [
+            #     6000, 1000, 5000, 7000, 2700, 8500, 9600]
 
-            data["donation_total_wk_1"] = sum(data["donation_amount_wk_1"])
-            data["donation_total_wk_2"] = sum(data["donation_amount_wk_2"])
+            # data["donation_total_wk_1"] = sum(data["donation_amount_wk_1"])
+            # data["donation_total_wk_2"] = sum(data["donation_amount_wk_2"])
 
-            users = User.objects.all().values("location").annotate(
-                count=Count("location")).order_by("-location")
+            # users = User.objects.all().values("location").annotate(
+            #     count=Count("location")).order_by("-location")
 
-            data["markers"] = []
-            data["mapData"] = dict()
-            for user in users:
-                data["markers"].append({
-                    "latLng": [location_data[user["location"]][0], location_data[user["location"]][1]],
-                    "name": "{} : {}".format(user["location"], user["count"])
-                })
+            # data["markers"] = []
+            # data["mapData"] = dict()
+            # for user in users:
+            #     data["markers"].append({
+            #         "latLng": [location_data[user["location"]][0], location_data[user["location"]][1]],
+            #         "name": "{} : {}".format(user["location"], user["count"])
+            #     })
 
-                data["mapData"][user["location"]] = user["count"]
+            #     data["mapData"][user["location"]] = user["count"]
+            return render_admin_dashboard(request)
 
             return render(request, "Admin/admin_dashboard.html", {"data": data})
+        elif user_data.role == 4:
+            request.session["role"] = "Validating Entity"
+            request.session["name"] = user_data.first_name + \
+                " " + user_data.last_name
+            return render(request, "VE/ve_index.html")
     pass
 
 
-def render_admin_login(request):
-    return render(request, "login.html", {"Error": ""})
+"""
+Administrative view functions
+"""
+
+
+"""Load  Admin Dashboard
+"""
 
 
 def render_admin_dashboard(request):
@@ -118,6 +133,11 @@ def render_admin_dashboard(request):
     return render(request, "Admin/admin_dashboard.html", {"data": data})
 
 
+"""
+Load tables editable by admin    
+"""
+
+
 def admin_tables(request):
 
     users = User.objects.all().values("id", "first_name", "last_name",
@@ -141,6 +161,54 @@ def admin_tables(request):
 
 def model_tester(request):
     return render(request, "Admin/test_model.html")
+
+
+"""
+Validating Entity 
+"""
+
+"""
+Page after login VE
+"""
+
+
+def render_ve_dashboard(request):
+    return render(request, "VE/ve_index.html")
+    pass
+
+
+def model_tester(request):
+    return render(request, "VE/test_model.html")
+
+
+def ve_request_donation(request):
+    {"Contact_number": 9234312434, "Location": "Mumbai", "Info": "Regarding Covid-19", "Requirements": [
+        "Face Masks", "Sanitizers", "Medicines"], "goal": [100, 100, 50], "Current": [20.0, 20.0, 5.0], "collected_amount": 5000}
+    requests = Request.objects.filter(is_active=1, is_approved=0).all()
+
+    request_data = list()
+    import ast
+    for r in requests:
+        description = ast.literal_eval(r.description)
+
+        data_dict = {
+            "id": r.id,
+            "info": description["Info"],
+            "location": description["Location"]
+        }
+        organization = Organisations.objects.get(id=r.org_id.id)
+
+        data_dict["org_name"] = organization.org_name
+        data_dict["requested_at"] = r.initiated_at
+        request_data.append(
+            data_dict
+        )
+
+    return render(request, "VE/ve_request_decision.html", {"data": request_data})
+
+
+def ve_organization_request(request):
+    return render(request, "VE/ve_poc_requests.html")
 
 
 """
