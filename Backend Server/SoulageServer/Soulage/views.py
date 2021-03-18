@@ -51,7 +51,7 @@ def index(request):
 
 def logout(request):
     request.session = ""
-    return render(request, index.html)
+    return render(request, "index.html")
 
 
 def render_admin_login(request):
@@ -100,6 +100,11 @@ def admin_login(request):
             request.session["name"] = user_data.first_name + \
                 " " + user_data.last_name
             return render(request, "VE/ve_index.html")
+        elif user_data.role == 2:
+            request.session["role"] = "Organisational POC"
+            request.session["name"] = user_data.first_name + \
+                " " + user_data.last_name
+            return render(request, "OrganizationalPOC/poc_index.html")
     pass
 
 
@@ -334,6 +339,15 @@ def ve_poc_decision(request, id, decision):
     else:
         return render(request, "VE/ve_poc_requests.html", {"data": data, "accept": "", "reject": "Request Rejected"})
     return
+
+
+"""
+Organisational Pocket
+"""
+
+
+def poc_index(request):
+    return render(request, "OrganizationalPOC/poc_index.html")
 
 
 """

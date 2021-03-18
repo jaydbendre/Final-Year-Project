@@ -56,5 +56,10 @@ urlpatterns = [
     path("poc_decision/<int:id>/<int:decision>",
          views.ve_poc_decision, name="ve_poc_decision"),
 
+    # Organisational POC
+    path("render_poc_dashboard", views.poc_index,
+         name="render_poc_dashboard"),
+
+
     path("logout", views.logout, name="logout")
 ]
