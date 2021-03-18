@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 import numpy as np
 import pandas as pd
 import json
-from .models import Data_Collection, Request, Donations, Topics, Organisations, User, Tweet_Sentiment, Tweet_Image_class
+from .models import Data_Collection, Request, Donations, Topics, Organisations, User, Tweet_Sentiment, Tweet_Image_class, POC_requests
 
 import datetime as dt
 
@@ -47,6 +47,11 @@ classes = {'Explicit': 0,
 def index(request):
     return render(request, "index.html")
     pass
+
+
+def logout(request):
+    request.session = ""
+    return render(request, index.html)
 
 
 def render_admin_login(request):
@@ -182,8 +187,8 @@ def model_tester(request):
 
 
 def ve_request_donation(request):
-    {"Contact_number": 9234312434, "Location": "Mumbai", "Info": "Regarding Covid-19", "Requirements": [
-        "Face Masks", "Sanitizers", "Medicines"], "goal": [100, 100, 50], "Current": [20.0, 20.0, 5.0], "collected_amount": 5000}
+    # {"Contact_number": 9234312434, "Location": "Mumbai", "Info": "Regarding Covid-19", "Requirements": [
+    #     "Face Masks", "Sanitizers", "Medicines"], "goal": [100, 100, 50], "Current": [20.0, 20.0, 5.0], "collected_amount": 5000}
     requests = Request.objects.filter(is_active=1, is_approved=0).all()
 
     request_data = list()
@@ -204,11 +209,131 @@ def ve_request_donation(request):
             data_dict
         )
 
-    return render(request, "VE/ve_request_decision.html", {"data": request_data})
+    return render(request, "VE/ve_request_decision.html", {"data": request_data, "accept": "", "reject": ""})
 
 
 def ve_organization_request(request):
-    return render(request, "VE/ve_poc_requests.html")
+
+    {
+        "organization_name": "organization omega",
+        "domain": "Pet relief",
+        "website": "https://this_is_my_org.com/in",
+        "networth": 7000000,
+        "hq_location": "Kolkata"
+    }
+    poc_requests = POC_requests.objects.filter(is_active=1).all()
+
+    import ast
+    data = list()
+    for poc in poc_requests:
+        details = ast.literal_eval(poc.organisation_details)
+        data.append({
+            "id": poc.id,
+            "poc_name": poc.name,
+            "org_name": details["organization_name"],
+            "domain": details["domain"],
+            "networth": "₹{}".format(details["networth"]),
+            "hq_location": details["hq_location"],
+            "website": details["website"],
+            "requested_at": poc.requested_at
+        })
+
+    return render(request, "VE/ve_poc_requests.html", {"data": data, "accept": "", "reject": ""})
+
+
+def ve_request_decision(request, id, decision):
+    import ast
+
+    requests = Request.objects.filter(id=id).update(
+        is_active=0, is_approved=decision, decision_passed_at=dt.datetime.now())
+
+    requests = Request.objects.filter(is_active=1, is_approved=0).all()
+
+    request_data = list()
+
+    for r in requests:
+        description = ast.literal_eval(r.description)
+
+        data_dict = {
+            "id": r.id,
+            "info": description["Info"],
+            "location": description["Location"]
+        }
+        organization = Organisations.objects.get(id=r.org_id.id)
+
+        data_dict["org_name"] = organization.org_name
+        data_dict["requested_at"] = r.initiated_at
+        request_data.append(
+            data_dict
+        )
+
+    if decision:
+        return render(request, "VE/ve_request_decision.html", {"data": request_data, "accept": "Accepted Successfully", "reject": ""})
+    else:
+        return render(request, "VE/ve_request_decision.html", {"data": request_data, "accept": "", "reject": "Request Rejected"})
+    return
+
+
+def ve_poc_decision(request, id, decision):
+    import ast
+    {
+        "organization_name": "organization omega",
+        "domain": "Pet relief",
+        "website": "https://this_is_my_org.com/in",
+        "networth": 7000000,
+        "hq_location": "Kolkata"
+    }
+    requests = POC_requests.objects.filter(id=id).update(
+        is_active=0, is_approved=decision, decision_passed_at=dt.datetime.now())
+
+    org_data = POC_requests.objects.get(id=id)
+    fname, lname = org_data.name.split(" ")
+    details = ast.literal_eval(org_data.organisation_details)
+
+    if decision:
+        User.objects.create(
+            first_name=fname,
+            last_name=lname,
+            email=org_data.email,
+            password="default_password",
+            location=details["hq_location"],
+            date_of_birth=dt.datetime.now().date(),
+            verified_at=dt.datetime.now(),
+            role=2
+        )
+
+        user_data = User.objects.get(email=org_data.email)
+
+        Organisations.objects.create(
+            org_name=details["organization_name"],
+            typeOrg=3,
+            is_verified=1,
+            location=details["hq_location"],
+            joining_time=dt.datetime.now(),
+            POC_user_id=user_data.id
+        )
+
+    poc_requests = POC_requests.objects.filter(is_active=1).all()
+
+    data = list()
+    for poc in poc_requests:
+        details = ast.literal_eval(poc.organisation_details)
+        data.append({
+            "id": poc.id,
+            "poc_name": poc.name,
+            "org_name": details["organization_name"],
+            "domain": details["domain"],
+            "networth": "₹{}".format(details["networth"]),
+            "hq_location": details["hq_location"],
+            "website": details["website"],
+            "requested_at": poc.requested_at
+        })
+
+    if decision:
+        return render(request, "VE/ve_poc_requests.html", {"data": data, "accept": "Accepted Successfully", "reject": ""})
+    else:
+        return render(request, "VE/ve_poc_requests.html", {"data": data, "accept": "", "reject": "Request Rejected"})
+    return
 
 
 """

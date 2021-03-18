@@ -9,14 +9,29 @@
 <div class="page-heading">
     <div class="page-content fade-in-up">
         <div class="ibox">
+            {% if accept %}
+            <div class="alert alert-success alert-dismissable fade show">
+                <button class="close" data-dismiss="alert" aria-label="Close">×</button><strong>Success!</strong>
+                {{ accept }}
+            </div>
+            {% endif %}
+            {% if reject %}
+            <div class="alert alert-warning alert-dismissable fade show">
+                <button class="close" data-dismiss="alert" aria-label="Close">×</button><strong>Warning!</strong>
+                {{ reject }}
+            </div>
+            {% endif %}
             <div class="ibox-body">
                 <table class="table table-striped table-bordered table-hover" id="example-table" cellspacing="0"
                     width="100%">
                     <thead>
                         <tr>
-                            <th>Information</th>
-                            <th>Initiated By</th>
+                            <th>POC Name</th>
+                            <th>Organization Name</th>
+                            <th>Website</th>
                             <th>Location</th>
+                            <th>Domain</th>
+                            <th>Networth</th>
                             <th>Requested At</th>
                             <th></th>
                             <th></th>
@@ -24,9 +39,12 @@
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Information</th>
-                            <th>Initiated By</th>
+                            <th>POC Name</th>
+                            <th>Organization Name</th>
+                            <th>Website</th>
                             <th>Location</th>
+                            <th>Domain</th>
+                            <th>Networth</th>
                             <th>Requested At</th>
                             <th></th>
                             <th></th>
@@ -35,14 +53,19 @@
                     <tbody>
                         {% for d in data %}
                         <tr>
-                            <td>{{ d.info }}</td>
+                            <td>{{ d.poc_name }}</td>
                             <td>{{ d.org_name }}</td>
-                            <td>{{ d.location }}</td>
+                            <td><a href="{{ d.website }}"> Link </a></td>
+                            <td>{{ d.hq_location }}</td>
+                            <td>{{ d.domain }}</td>
+                            <td>{{ d.networth }}</td>
                             <td>{{ d.requested_at }}</td>
                             <td>
-                                <button class="btn btn-success btn-circle"><i class="fa fa-check"></i></button>
+                                <a href="{% url 've_poc_decision' id=d.id decision=1 %}"><button
+                                        class="btn btn-success btn-circle"><i class="fa fa-check"></i></button></a>
                             </td>
-                            <td><button class="btn btn-danger btn-circle"><i class="fa fa-times"></i></button></td>
+                            <td><a href="{% url 've_poc_decision' id=d.id decision=0 %}"><button
+                                        class="btn btn-danger btn-circle"><i class="fa fa-times"></i></button></a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

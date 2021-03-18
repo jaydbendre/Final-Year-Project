@@ -50,5 +50,11 @@ urlpatterns = [
     path("request_donation_request", views.ve_request_donation,
          name="ve_request_donation_decision"),
     path("organization_poc_request", views.ve_organization_request,
-         name="ve_org_request_decision")
+         name="ve_org_request_decision"),
+    path("decision/<int:id>/<int:decision>",
+         views.ve_request_decision, name="ve_request_decision"),
+    path("poc_decision/<int:id>/<int:decision>",
+         views.ve_poc_decision, name="ve_poc_decision"),
+
+    path("logout", views.logout, name="logout")
 ]

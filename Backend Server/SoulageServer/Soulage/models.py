@@ -135,5 +135,7 @@ class POC_requests(models.Model):
     name = models.TextField(default=None)
     organisation_details = models.TextField(default=None)
     is_approved = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
     decision_passed_at = models.DateTimeField(default=datetime.datetime.now())
+    requested_at = models.DateTimeField(default=datetime.datetime.now())
     email = models.EmailField(unique=True)

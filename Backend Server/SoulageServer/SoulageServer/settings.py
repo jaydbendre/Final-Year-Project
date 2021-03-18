@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Soulage',
     'rest_framework',
-    # "NeuralNetwork"
+    "NeuralNetwork"
 ]
 
 MIDDLEWARE = [
