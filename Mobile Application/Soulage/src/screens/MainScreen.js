@@ -1,3 +1,43 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6c6a3aea84e9fbb3e4d14095a61e9503da0c3df8fa07833c0456671e0516cb65
-size 1243
+import React from 'react';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+
+import AntDesign from 'react-native-vector-icons/Entypo';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+// For Screens
+import DashBoard from './DashBoard';
+import NotificationScreen from './NotificationScreen';
+
+const Tab = createBottomTabNavigator({
+    Home: {
+        screen: DashBoard,
+        navigationOptions: {
+            tabBarLabel: 'Home',
+            tabBarIcon: () => (
+                <AntDesign name="home" size={30} color="black" />
+            )
+        }
+    },
+    NotificationScreen: {
+        screen: NotificationScreen,
+        navigationOptions: {
+            tabBarLabel: 'Notifications',
+            tabBarIcon: () => (
+                <Ionicons name="notifications-sharp" size={30} color="black" />
+            )
+        }
+    },
+    More: {
+        screen: NotificationScreen,
+        navigationOptions: {
+            tabBarLabel: 'More',
+            tabBarIcon: () => (
+                <MaterialIcons name="more" size={30} color="black" />
+            )
+        }
+    }
+});
+
+
+export default Tab;

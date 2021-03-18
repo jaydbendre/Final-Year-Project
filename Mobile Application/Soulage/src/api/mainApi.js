@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:52665351b1018d9c3ff29909d80de71425c1e08babec5970bd96f34c8b141182
-size 611
+import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
+
+const instance = axios.create({
+    baseURL: 'http://192.168.5.3:8000'
+});
+
+// instance.interceptors.request.use(
+//     async (config) => {
+//         const token = JSON.parse(await AsyncStorage.getItem('token'));
+//         if (token){
+//             // const token = details.token;
+//             config.headers.Authorization = `Bearer ${token}`;
+//         }
+//         return config;
+//     },
+//     (err) => {
+//         return Promise.reject(err);
+//     }
+// );
+
+export default instance;

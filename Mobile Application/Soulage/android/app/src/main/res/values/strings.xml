@@ -1,3 +1,3 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6a0bbb792bf8c6e48953cadeb5fd4b81b8232685e99d4b5fe8ab09808cc04414
-size 70
+<resources>
+    <string name="app_name">Soulage</string>
+</resources>

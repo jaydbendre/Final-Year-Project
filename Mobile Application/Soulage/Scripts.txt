@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:89e5441defa03d77b78241c333b1a14abe2e51779d990f0cf24a9eb7e0a2ce4e
-size 2169
+We have used React Native for developing the Mobile Apllication for our system. React Native is javascript framework and is used to develop a cross platform mobile Apllication. For communicating with server we have used REST API. 
+
+This is Login page of our System. Twitter users can login directly using his/her Twitter account credentials as our system has integrated Twitter OAuth.
+
+Register Screen:
+If the user do not have a Twitter account then the user can register himself by providing the following details. Once the user registers into the system he/she will be redirected to the system.
+
+Login Screen:
+Now I'll login into the system using Twitter Account. Once the Twitter Authenticates, it returns the unique token generated for the user which our system uses to login the user into the system. 
+
+Dashboard:
+In the Dashboard user can view the top recent trending tweets which our system identifies using the machine learning model. With each trending tweets user can view the emotions attached to the tweet. We have used Pie-chart to show the the emotions attached to the tweet.
+
+Notifications:
+Users can view their notifications in this screen. Users will receive notifications like if there is any disaster occured in nearby locality, or if any donation pool has opened recently.
+
+
+Donations:
+User can view all the current Donation pools which are opened in this screen. These are the different donation pools identified and opened by our system for the current diasters. Each donation pool will be either backed by the government or NGO or any company who are ready to come forward to help. Details of these donation pools can be viewed by Clicking on the particular donation pool.
+
+Next:
+Once the user clicks on the donation pool, description of each and every required donation can be viewed and which donation is backed by which organisation can be viewed. If the user wants to donate to particular donation pool he/she can click on the donate button and donate for the disaster. We have used progress bar to inform the user about the currently collected required materials and funds which will be used to help the affected people.

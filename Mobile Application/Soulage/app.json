@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:08ae496aa5046071d82d44c9325824595cfe383e2b6524216068a55cb0196ef6
-size 51
+{
+  "name": "Soulage",
+  "displayName": "Soulage"
+}

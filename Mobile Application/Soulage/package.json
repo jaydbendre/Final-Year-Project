@@ -1,3 +1,55 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d353b58208ae904bf6f64a0e80e4733ec6962cec9e4bd3c134e492d80f088c22
-size 1742
+{
+  "name": "Soulage",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@react-native-community/async-storage": "^1.12.1",
+    "@react-native-community/masked-view": "^0.1.10",
+    "axios": "^0.21.0",
+    "d3-shape": "^2.0.0",
+    "lottie-react-native": "^3.5.0",
+    "react": "16.13.1",
+    "react-native": "0.63.3",
+    "react-native-animated-loader": "0.0.8",
+    "react-native-chart-kit": "^6.6.1",
+    "react-native-collapsible": "^1.5.3",
+    "react-native-dialog-input": "^1.0.8",
+    "react-native-elements": "^3.0.0-alpha.1",
+    "react-native-flash-message": "^0.1.18",
+    "react-native-flip-card": "^3.5.6",
+    "react-native-gesture-handler": "^1.9.0",
+    "react-native-progress": "^4.1.2",
+    "react-native-reanimated": "^1.13.1",
+    "react-native-safe-area-context": "^3.1.8",
+    "react-native-screens": "^2.14.0",
+    "react-native-svg": "^12.1.0",
+    "react-native-svg-charts": "^5.4.0",
+    "react-native-twitter-signin": "^1.1.1",
+    "react-native-upi-payment": "^1.0.2",
+    "react-native-vector-icons": "^7.1.0",
+    "react-navigation": "^4.4.3",
+    "react-navigation-drawer": "^2.6.0",
+    "react-navigation-stack": "^2.10.1",
+    "react-navigation-tabs": "^2.10.1"
+  },
+  "devDependencies": {
+    "@babel/core": "7.12.3",
+    "@babel/runtime": "7.12.5",
+    "@react-native-community/eslint-config": "1.1.0",
+    "babel-jest": "25.5.1",
+    "eslint": "6.8.0",
+    "jest": "25.5.4",
+    "metro-react-native-babel-preset": "0.59.0",
+    "react-test-renderer": "16.13.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}

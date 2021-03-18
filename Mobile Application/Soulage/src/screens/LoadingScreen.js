@@ -1,3 +1,18 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7785156c542035e2b6ce73371671ffbc94e449c905e2e6f432ed81d850d07b42
-size 474
+import React from 'react';
+// import { View, Text } from 'react-native';
+
+import AnimatedLoader from '../Spinner/spinner';
+
+const LoadingScreen = () => {
+    return (
+        <AnimatedLoader
+            visible={true}
+            source={require('../Spinner/loader.json')}
+            overlayColor="rgba(255,255,255,0.75)"
+            animationStyle={{ width: '100%', height: '100%' }}
+            speed={1}
+        />
+    )
+}
+
+export default LoadingScreen;

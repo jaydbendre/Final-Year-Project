@@ -1,3 +1,21 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:bbad986e6c2cfa34bfe4db0d3a11cb6e0d4456339a79eb50fb4e9f06433e9c6f
-size 459
+import React from 'react';
+
+// For Navigation
+import { createStackNavigator } from 'react-navigation-stack';
+
+// For Screens
+import LoginScreen from './LoginScreen';
+import RegisterScreen from './RegisterScreen';
+
+const navigator = createStackNavigator({
+    LoginScreen: {
+        screen: LoginScreen
+    },
+    RegisterScreen: {
+        screen: RegisterScreen
+    }
+}, {
+    initialRouteName: 'LoginScreen'
+});
+
+export default navigator;

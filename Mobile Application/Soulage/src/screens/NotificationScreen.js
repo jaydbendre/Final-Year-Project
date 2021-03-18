@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:881f4247ee9d421bae0250981a35525073adf96602420fb121a6ed6c484bc1d4
-size 409
+import React from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+
+const NotificationScreen = () => {
+    return(
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text>
+                No Notifications Available 
+            </Text>
+        </View>
+    )
+}
+
+const styles = StyleSheet.create({});
+
+export default NotificationScreen;
