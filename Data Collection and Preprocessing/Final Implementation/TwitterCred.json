@@ -1,3 +1,7 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a9c5fb4cde241bf8ac663b19224f8e3b9601ec6392754a9c05e0938a92beaf7a
-size 408
+{
+    "api_key": "PmGdDoSbyICTvxbVmPgUThABb",
+    "api_secret": "NbsjTWNISrrTDzSPkJ4z87iKTee3VvByP8FfwxH4dMIzBQE3z1",
+    "access_token": "1066726122333896707-ovOxlhzTFZluU4hnGaRF9Dn0ppkBAa",
+    "access_secret": "T629ywDoYRcFOuGxEFaPzJ9WLqQD7ixuntnmBZEyQHOAD",
+    "BEARER_TOKEN": "AAAAAAAAAAAAAAAAAAAAAGyWGgEAAAAAQLEzxJ4DJTRXSPEbs5J17e4%2Ft%2BI%3DLybuc7XMiEW5q3UbSyzLZP6fE62m79tv8FHIj0hTB4IYwpwdNR"
+}

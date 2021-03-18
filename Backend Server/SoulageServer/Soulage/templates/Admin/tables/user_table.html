@@ -1,3 +1,38 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5a7119833d349e357db432d3b0cd983ee36afa9e0e4d3f3fc812c4b216cf64e7
-size 1384
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th width="50px"></th>
+                <th>id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Twitter Username</th>
+                <th>Location</th>
+                <th>Date of birth</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in data.users %}
+            <tr>
+                <td>
+                    <label class="ui-checkbox">
+                        <input type="checkbox">
+                        <span class="input-span"></span>
+                    </label>
+                </td>
+                {% for element in user.values %}
+                <td> {{element}}</td>
+                {% endfor %}
+                <td>
+                    <button class="btn btn-default btn-xs m-r-5" data-toggle="tooltip" data-original-title="Edit"><i
+                            class="fa fa-pencil font-14"></i></button>
+                    <button class="btn btn-default btn-xs" data-toggle="tooltip" data-original-title="Delete"><i
+                            class="fa fa-trash font-14"></i></button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

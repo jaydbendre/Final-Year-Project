@@ -1,3 +1,33 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:94d6a3aa174dcba6bf5e0c556521df00e10886d558070711e94bb4144cc7e5ed
-size 1506
+{% extends "Admin/admin_dashboard_layout.html" %}
+{% load static %}
+{% block admin_content %}
+
+<div class="ibox">
+    <div class="ibox-head">
+        <div class="ibox-title">Line tabs</div>
+    </div>
+    <div class="ibox-body">
+        <ul class="nav nav-tabs tabs-line">
+            <li class="nav-item">
+                <a class="nav-link active" href="#tab-7-1" data-toggle="tab"><i class="fa fa-line-chart"></i> User</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#tab-7-2" data-toggle="tab"><i class="fa fa-heartbeat"></i> Organisation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#tab-7-3" data-toggle="tab"><i class="fa fa-life-ring"></i> Donations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#tab-7-4" data-toggle="tab"><i class="fa fa-life-ring"></i> Tweets</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="tab-7-1">{% include "Admin/tables/user_table.html" %}</div>
+            <div class="tab-pane fade" id="tab-7-2">{% include "Admin/tables/organisation.html" %}</div>
+            <div class="tab-pane fade" id="tab-7-3">{% include "Admin/tables/donation_table.html" %}</div>
+            <div class="tab-pane fade" id="tab-7-4">{% include "Admin/tables/tweets.html" %}</div>
+
+        </div><br>
+    </div>
+</div>
+{% endblock %}
