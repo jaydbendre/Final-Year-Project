@@ -26,6 +26,13 @@ months = {
     12: "Dec",
 }
 
+progress_bar_class = {
+    0: "progress-bar progress-bar-danger",
+    1: "progress-bar progress-bar-warning",
+    2: "progress-bar progress-bar-info",
+    3: "progress-bar progress-bar-success",
+
+}
 important_usernames = [
     "cnnbrk",
     "nytimes",
@@ -56,7 +63,8 @@ location_data = {
     "location7": (40.85454, 39.61262),
     "location8": (10.15598, 147.08270),
     "location9": (10.24108, -41.60236),
-    "location10": (27.80297, 121.36428)
+    "location10": (27.80297, 121.36428),
+    "Kolkata": (27.80297, 121.36428)
 }
 
 classes = {'Explicit': 0,
@@ -134,7 +142,28 @@ def admin_login(request):
                 " " + user_data.last_name
             user_org = User_Organisation_Map.objects.get(user_id=user_data.id)
             request.session["org_id"] = user_org.org_id.id
-            return render(request, "OrganizationalPOC/poc_index.html")
+            import ast
+            user_org_map = User_Organisation_Map.objects.filter(
+                org_id=request.session["org_id"])
+
+            data = dict()
+            number_of_users = len(user_org_map)
+
+            donations = Request.objects.filter(
+                is_approved=1, org_id=request.session["org_id"])
+
+            pending_donations = Request.objects.filter(
+                is_approved=0, is_active=1, org_id=request.session["org_id"])
+
+            total_money = 0
+            for donation in donations:
+                description = ast.literal_eval(donation.description)
+                total_money += description["collected_amount"]
+            data["count_user"] = number_of_users
+            data["count_donations"] = len(donations)
+            data["count_money"] = "₹{}".format(total_money)
+            data["count_pending"] = len(pending_donations)
+            return render(request, "OrganizationalPOC/poc_index.html", {"data": data})
     pass
 
 
@@ -229,6 +258,8 @@ def ve_request_donation(request):
     request_data = list()
     import ast
     for r in requests:
+        if r.description == "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum":
+            continue
         description = ast.literal_eval(r.description)
 
         data_dict = {
@@ -287,6 +318,9 @@ def ve_request_decision(request, id, decision):
     request_data = list()
 
     for r in requests:
+        if type(r.description) == None:
+            pass
+        print(r.description)
         description = ast.literal_eval(r.description)
 
         data_dict = {
@@ -447,6 +481,41 @@ def render_poc_users(request):
 
         data.append(data_dict)
     return render(request, "OrganizationalPOC/poc_users.html", {"data": data})
+
+
+def view_poc_donations(request):
+    import ast
+    donations = Request.objects.filter(
+        is_approved=1, org_id=request.session["org_id"])
+
+    {'Contact_number': 923422222222, 'Location': 'Pune', 'Info': 'Regarding Flood', 'Requirements': [
+        'Food Packets', 'Syringes', 'Shelter Cloth'], 'goal': [100, 1000, 500], 'Current': [20, 200.0, 100], 'collected_amount': 1220}
+
+    data = list()
+    i = 0
+    for donation in donations:
+        description = ast.literal_eval(donation.description)
+        print(donation.id)
+        data_dict = {
+            "info": description["Info"],
+            "location": description["Location"],
+            "contact": "+91 {}".format(description["Contact_number"]),
+            "collected_amount": "₹ {}".format(description["collected_amount"])
+        }
+
+        data_dict["progress"] = dict()
+        for r, c, g, i in zip(description["Requirements"], description["Current"], description["goal"], range(3)):
+            data_dict["progress"][r] = {
+                "current": c,
+                "goal": g,
+                "percent": "{:.2f}".format(c/g * 100),
+                "progress_bar_class": progress_bar_class[i]
+            }
+
+        data.append(data_dict)
+
+    # return HttpResponse(data)
+    return render(request, "OrganizationalPOC/poc_view_donations.html", {"data": data})
 
 
 """

@@ -1,0 +1,87 @@
+{% extends "OrganizationalPOC/poc_index_layout.html" %}
+{% load static %}
+{% block poc %}
+<style></style>
+<div class="page-heading">
+    <h1 class="page-title">Welcome to View Donations <i class="ti-money"></i></h1>
+</div>
+<div class="page-content fade-in-up">
+    {% for d in data %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox">
+                <div class="ibox-head">
+                    <div class="ibox-title">{{ d.info }}</div>
+                    <div class="ibox-tools">
+                        <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                        <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
+                    </div>
+                </div>
+                <div class="ibox-body">
+                    <div class="scroller" data-height="200px">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <i class="ti-user"></i> &nbsp; Contact Information : {{ d.contact }}
+                                <br />
+                                <i class="ti-map"></i>&nbsp; Location : {{ d.location }}
+                                <br />
+                                <i class="ti-money"></i> &nbsp; Money Collected: {{ d.collected_amount }}
+                                <br />
+                                <i class="ti-info"></i> &nbsp; Information : {{ d.info }}
+                                <br />
+                                {% if d.progress.items != None %}
+                                <i class="ti-package"></i>&nbsp; Requirements: {% for requirement in d.progress.keys %}
+                                {{ requirement }}, {% endfor%}</i>
+                                {% endif %}
+                                <br />
+                                <br />
+                                {% if d.progress.items != None %}
+                                <i class="ti-brush-alt"></i>&nbsp;Legend:
+                                <br />
+                                {% for requirement,value in d.progress.items %}
+                                {% if value.progress_bar_class == "progress-bar progress-bar-danger" %}
+                                <button class="btn btn-danger btn-xs btn-circle"></button> &nbsp;{{ requirement }}
+                                <br />
+
+                                {% elif value.progress_bar_class == "progress-bar progress-bar-warning" %}
+                                <button class="btn btn-warning btn-xs btn-circle"></i></button>&nbsp;{{ requirement }}
+                                <br />
+                                {% elif value.progress_bar_class == "progress-bar progress-bar-info" %}
+                                <button class="btn btn-info btn-xs btn-circle"></button>&nbsp;{{ requirement }} <br />
+                                {% elif value.progress_bar_class == "progress-bar progress-bar-success" %}
+                                <button class="btn btn-success btn-xs btn-circle"></button> &nbsp;{{ requirement }}
+                                <br />
+                                {% endif %}
+
+
+
+                                {% endfor%}
+                                {% endif %}
+
+                            </div>
+                            <div class="col-md-6">
+                                <div style="height:150px;">
+                                    {% for attr,value in d.progress.items %}
+                                    <div class="progress progress-vertical progress-bottom progress-wide">
+                                        <div class="{{ value.progress_bar_class }}" role="progressbar"
+                                            style="height: {{ value.percent }}%;" aria-valuenow="{{ value.percent }}"
+                                            aria-valuemin="0" aria-valuemax="100">
+                                            {{ value.current }} / {{value.goal }}</div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

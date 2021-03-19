@@ -61,6 +61,7 @@ urlpatterns = [
          name="render_poc_dashboard"),
     path("poc_users", views.render_poc_users, name="render_poc_users"),
     path("poc_imp_tweets", views.poc_imp_tweets, name="render_poc_imp_tweets"),
+    path("poc_donations", views.view_poc_donations, name="view_poc_donations"),
 
     path("logout", views.logout, name="logout")
 ]
