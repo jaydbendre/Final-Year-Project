@@ -1,9 +1,68 @@
 {% extends "OrganizationalPOC/poc_index_layout.html" %}
 {% load static %}
 {% block poc %}
-{% endblock %}
+
 <div class="page-heading">
     <h1 class="page-title">Welcome back, {{ request.session.name }}</h1>
 </div>
 <div class="page-content fade-in-up">
+    <div class="ibox">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="ibox bg-success color-white widget-stat">
+                    <div class="ibox-body">
+                        <h2 class="m-b-5 font-strong">{{ data.count_user }}</h2>
+                        <div class="m-b-5">USERS</div><i class="ti-user widget-stat-icon"></i>
+                        {% comment %} <div><i class="fa fa-level-up m-r-5"></i><small>25% higher</small></div>
+                        {% endcomment%}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="ibox bg-info color-white widget-stat">
+                    <div class="ibox-body">
+                        <h2 class="m-b-5 font-strong">{{ data.count_donations }}</h2>
+                        <div class="m-b-5">ACTIVE DONATIONS</div><i class="ti-check widget-stat-icon"></i>
+                        {% comment %} <div><i class="fa fa-level-up m-r-5"></i><small>17% higher</small></div>
+                        {% endcomment %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="ibox bg-warning color-white widget-stat">
+                    <div class="ibox-body">
+                        <h2 class="m-b-5 font-strong">{{ data.count_money }}</h2>
+                        <div class="m-b-5">MONEY COLLECTED</div><i class="ti-money widget-stat-icon"></i>
+                        {% comment %} <div><i class="fa fa-level-up m-r-5"></i><small>22% higher</small></div>
+                        {% endcomment %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="ibox bg-danger color-white widget-stat">
+                    <div class="ibox-body">
+                        <h2 class="m-b-5 font-strong">{{ data.count_pending }}</h2>
+                        <div class="m-b-5">PENDING DONATIONS</div><i class="ti-help widget-stat-icon"></i>
+                        {% comment %} <div><i class="fa fa-level-down m-r-5"></i><small>-12% Lower</small></div>
+                        {%endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ibox">
+                    <div class="ibox-head">
+                        <div class="ibox-title">Donations Collected By the Organisation</div>
+                    </div>
+                    <div class="ibox-body">
+                        <div class="chart" id="flot_visitors" style="height:280px;"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
+{% endblock %}

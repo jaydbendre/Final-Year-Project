@@ -59,7 +59,8 @@ urlpatterns = [
     # Organisational POC
     path("render_poc_dashboard", views.poc_index,
          name="render_poc_dashboard"),
-
+    path("poc_users", views.render_poc_users, name="render_poc_users"),
+    path("poc_imp_tweets", views.poc_imp_tweets, name="render_poc_imp_tweets"),
 
     path("logout", views.logout, name="logout")
 ]

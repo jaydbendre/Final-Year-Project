@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.db.models import Count
+from django.db.models import Count, Q
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 import numpy as np
 import pandas as pd
 import json
-from .models import Data_Collection, Request, Donations, Topics, Organisations, User, Tweet_Sentiment, Tweet_Image_class, POC_requests
+from .models import Data_Collection, Request, Donations, Topics, Organisations, User, Tweet_Sentiment, Tweet_Image_class, POC_requests, User_Organisation_Map
 
 import datetime as dt
 
@@ -104,6 +104,8 @@ def admin_login(request):
             request.session["role"] = "Organisational POC"
             request.session["name"] = user_data.first_name + \
                 " " + user_data.last_name
+            user_org = User_Organisation_Map.objects.get(user_id=user_data.id)
+            request.session["org_id"] = user_org.org_id.id
             return render(request, "OrganizationalPOC/poc_index.html")
     pass
 
@@ -347,7 +349,56 @@ Organisational Pocket
 
 
 def poc_index(request):
-    return render(request, "OrganizationalPOC/poc_index.html")
+    import ast
+    user_org_map = User_Organisation_Map.objects.filter(
+        org_id=request.session["org_id"])
+
+    data = dict()
+    number_of_users = len(user_org_map)
+
+    donations = Request.objects.filter(
+        is_approved=1, org_id=request.session["org_id"])
+
+    pending_donations = Request.objects.filter(
+        is_approved=0, is_active=1, org_id=request.session["org_id"])
+
+    total_money = 0
+    for donation in donations:
+        description = ast.literal_eval(donation.description)
+        total_money += description["collected_amount"]
+    data["count_user"] = number_of_users
+    data["count_donations"] = len(donations)
+    data["count_money"] = "₹{}".format(total_money)
+    data["count_pending"] = len(pending_donations)
+    return render(request, "OrganizationalPOC/poc_index.html", {"data": data})
+
+
+def poc_imp_tweets(request):
+    return render(request, "OrganizationalPOC/poc_imp_tweets.html")
+
+
+def render_poc_users(request):
+    users = User_Organisation_Map.objects.filter(
+        org_id=request.session["org_id"])
+
+    data = list()
+    for user in users:
+        user_data = User.objects.get(id=user.user_id.id)
+        data_dict = {
+            "fname": user_data.first_name,
+            "lname": user_data.last_name,
+            "email": user_data.email,
+            "handle": user_data.twitter_user_name,
+            "lop": user_data.location,
+        }
+
+        if user_data.role == 2:
+            data_dict["role"] = "POC"
+        else:
+            data_dict["role"] = "Org. User"
+
+        data.append(data_dict)
+    return render(request, "OrganizationalPOC/poc_users.html", {"data": data})
 
 
 """
