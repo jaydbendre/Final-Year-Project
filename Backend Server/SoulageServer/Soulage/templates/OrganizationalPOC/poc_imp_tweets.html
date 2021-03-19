@@ -1,4 +1,130 @@
 {% extends "OrganizationalPOC/poc_index_layout.html" %}
 {% load static %}
 {% block poc %}
+<link href="{% static 'assets/vendors/DataTables/datatables.min.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/8.5.0/build.css"
+    integrity="sha512-oXqkIy/+iqrHrpoTwFkSLZJpNwoYn9e77QtCNzBi+Jb6uJgTtcdHVy0C+nEpeUfC3fxSbydPxLG+ndikNVvrdQ=="
+    crossorigin="anonymous" />
+<style>
+    .tweet-list {
+        list-style: none;
+        margin: 8px 4px 0;
+        padding: 0;
+    }
+
+    .tweet-card {
+        background-color: #fff;
+        border-bottom: 1px solid #e6ecf0;
+        min-height: 52px;
+        padding: 9px 12px;
+    }
+
+    .tweet-content {
+        margin-left: 58px;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: normal;
+    }
+
+    .tweet-card-avatar {
+        border-radius: 50%;
+        height: 48px;
+        width: 48px;
+        float: left;
+        margin-top: 3px;
+        margin-left: -58px;
+    }
+
+    .tweet-footer-btn {
+        margin-right: 30px;
+    }
+
+    .tweet-footer-btn i,
+    .tweet-footer-btn span {
+        color: #657786;
+        font-size: 16px;
+    }
+
+    .tweet-footer-btn span {
+        margin-left: 8px;
+    }
+
+    .tweet-footer-btn {
+        margin-right: 30px;
+    }
+
+    .tweet-footer-btn i,
+    .tweet-footer-btn span {
+        color: #657786;
+        font-size: 16px;
+    }
+
+    .tweet-footer-btn span {
+        margin-left: 8px;
+    }
+</style>
+
+<div class="page-heading">
+    <h1 class="page-title">Important Tweets <i class="ti-twitter"></i></h1>
+</div>
+<div class="page-content fade-in-up">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox">
+                <div class="ibox-head">
+                    <div class="ibox-title">
+                        Tweets
+                    </div>
+                </div>
+                <div class="ibox-body">
+                    <ol class="tweet-list">
+                        {% for d in data.tweet %}
+                        <li class="tweet-card">
+                            <div class="tweet-content">
+                                <div class="tweet-header">
+                                    <span class="fullname">
+                                        <strong>{{ d.username }}</strong>
+                                    </span>
+                                    <span class="username">@{{ d.username }}</span>
+                                    <span class="tweet-time">- {{ d.time }}</span>
+                                </div>
+                                <a>
+                                    <img class="tweet-card-avatar" src="{{ d.profile_url }}" alt="">
+                                </a>
+                                <div class="tweet-text">
+                                    <p class="" lang="es" data-aria-label-part="0">
+                                        {{ d.text }}
+                                    </p>
+                                </div>
+                                <!-- <div class="tweet-footer"> -->
+
+                                </a>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="ibox">
+                <div class="ibox-head">
+                    <div class="ibox-title">
+                        Important Usernames
+                    </div>
+                </div>
+                <div class="ibox-body">
+                    <ul class="list-group list-group-full list-group-divider">
+                        {% for handle in data.imp_tweet_handle %}
+                        <li class="list-group-item">@{{ handle }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
 {% endblock %}

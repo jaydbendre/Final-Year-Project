@@ -11,6 +11,34 @@ from .models import Data_Collection, Request, Donations, Topics, Organisations, 
 
 import datetime as dt
 
+months = {
+    1: "Jan",
+    2: "Feb",
+    3: "Mar",
+    4: "Apr",
+    5: "May",
+    6: "Jun",
+    7: "Jul",
+    8: "Aug",
+    9: "Sept",
+    10: "Oct",
+    11: "Nov",
+    12: "Dec",
+}
+
+important_usernames = [
+    "cnnbrk",
+    "nytimes",
+    "cnn",
+    "bbcworld",
+    "ndtv",
+    "aajtak",
+    "ABPNews",
+    "TimesNow",
+    "MoHFW_INDIA",
+    "mygovindia"
+]
+
 """
 WEBSITE
 """
@@ -374,7 +402,27 @@ def poc_index(request):
 
 
 def poc_imp_tweets(request):
-    return render(request, "OrganizationalPOC/poc_imp_tweets.html")
+    data = dict()
+
+    tweet_data = Data_Collection.objects.filter(
+        user_name__in=important_usernames)
+
+    data["tweet"] = list()
+    for tweet in tweet_data:
+        created_at = dt.datetime.strptime(
+            tweet.created_at, "%Y-%m-%d %H:%M:%S")
+        data["tweet"].append(
+            {
+                "text": tweet.text,
+                "time": "{}th {} {}".format(created_at.day, months[created_at.month], str(created_at.year)[2:]),
+                "username": tweet.user_name,
+                "profile_url": "static/assets/img/imp_username/{0}.png".format(tweet.user_name)
+            }
+        )
+
+    data["imp_tweet_handle"] = important_usernames
+    # return HttpResponse(data.items())
+    return render(request, "OrganizationalPOC/poc_imp_tweets.html", {"data": data})
 
 
 def render_poc_users(request):
