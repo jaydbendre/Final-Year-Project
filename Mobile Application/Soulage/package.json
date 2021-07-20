@@ -16,7 +16,7 @@
     "d3-shape": "^2.0.0",
     "lottie-react-native": "^3.5.0",
     "react": "16.13.1",
-    "react-native": "0.63.3",
+    "react-native": "0.64.1",
     "react-native-animated-loader": "0.0.8",
     "react-native-chart-kit": "^6.6.1",
     "react-native-cli": "^2.0.1",
